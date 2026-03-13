@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
+import { buildPortfolioContext } from "@/data/portfolio";
 
 const DEBUG_LOG = join(process.cwd(), ".cursor", "debug-b9358d.log");
 const DEBUG_LOG_FALLBACK = join(process.cwd(), "api-ai-debug.log");
@@ -15,37 +16,6 @@ function log(payload: Record<string, unknown>) {
     } catch (_) {}
   }
 }
-
-const RESUME_CONTEXT = `
-Professional Summary:
-Entry-level Data Engineer and Data Science graduate with internship experience designing and operating Python-based data pipelines, ETL/ELT workflows, and backend data services. Experience ingesting, modeling, and validating data from APIs, files, and relational databases for analytics and machine learning use cases. Hands-on automation of Linux-based workflows using Python and Bash, with strong focus on logging, monitoring, and data quality.
-
-Goods Unite Us — Software Intern, NJ, USA:
-- Engineered Python-based data pipelines and backend services with robust data modeling for analytics and ML workloads.
-- Architected modular ETL/ELT components for structured and semi-structured data using object-oriented design and big data technologies.
-- Automated high-volume data ingestion and validation using Linux-based workflows (Python + Bash) with robust logging and error handling.
-
-Webdaddy — Python Developer R&D Specialist Intern, India:
-- Developed Python-based tools and utilities to build end-to-end data pipelines integrating APIs, flat files, and relational databases.
-- Implemented reusable, object-oriented Python modules for ETL/ELT workflows and transformation logic.
-- Automated system and data workflows using Python and Bash with cron and task schedulers.
-
-Findem — R&D Data Analyst Intern, Bengaluru, India:
-- Engineered backend services using FastAPI, Django, and Java microservices to support scalable data ingestion and transformation.
-- Maintained Linux-based data processing applications with a focus on throughput, reliability, and observability.
-- Prepared ML training datasets with feature engineering, cleansing, and validation checks.
-
-Featured Projects:
-- Scalable Data Ingestion & ETL Pipeline: Python-based system for ingesting and processing structured datasets with modular ETL, validation, logging, and Linux-based workflows, supporting downstream ML model experimentation.
-- Automated Analytics & Reporting Pipelines: Automation tools using Python and Bash to streamline data preparation for ML, integrating with JavaScript-based dashboards and reporting layers.
-
-Key Skills:
-- Programming: Python, SQL, Bash, C++, JavaScript, Java, C#.
-- Data Engineering: ETL/ELT workflows, data ingestion, data modeling, schema management, modular pipeline design.
-- Machine Learning: TensorFlow, feature engineering, EDA, statistical modeling.
-- Cloud: AWS (S3, Glue exposure), GCP, Snowflake, Firebase.
-- Databases: SQL Server, PostgreSQL, Snowflake, MongoDB.
-`;
 
 const SYSTEM_INSTRUCTIONS = `
 You are a helpful AI assistant that answers questions about the candidate "Sai Srinivas Pedhapolla".
@@ -64,8 +34,18 @@ const MAX_BODY_BYTES = 50 * 1024; // 50KB (for history)
 const MAX_HISTORY_MESSAGES = 20; // last 10 turns
 const LLM_TIMEOUT_MS = 28000;
 
-const GEMINI_MODEL = "gemini-2.5-flash"; // Free tier: 5 RPM, 250K TPM, 20 RPD (see AI Studio for your quota)
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+/**
+ * Many models exist in AI Studio; we try these in order.
+ * When one hits quota (429), the next is used. Order: higher quota first.
+ */
+const GEMINI_MODELS = [
+  "gemini-3.1-flash-lite", // 15 RPM, 250K TPM, 500 RPD — try first (best quota)
+  "gemini-2.5-flash-lite", // 10 RPM, 250K TPM, 20 RPD
+  "gemini-2.5-flash",      // 5 RPM, 250K TPM, 20 RPD
+  "gemini-3-flash",        // 5 RPM, 250K TPM, 20 RPD
+];
+const geminiUrl = (model: string) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
 export async function POST(request: Request) {
   if (request.method !== "POST") {
@@ -141,14 +121,14 @@ export async function POST(request: Request) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), LLM_TIMEOUT_MS);
 
-    let answer: string;
+    let answer: string | undefined;
 
     try {
       if (useGemini) {
         const systemInstruction =
           SYSTEM_INSTRUCTIONS +
           "\n\nContext about Sai (resume + projects + skills):\n" +
-          RESUME_CONTEXT;
+          buildPortfolioContext();
         const contents: { role: string; parts: { text: string }[] }[] = [];
         for (const m of history) {
           contents.push({
@@ -158,47 +138,74 @@ export async function POST(request: Request) {
         }
         contents.push({ role: "user", parts: [{ text: trimmedMessage }] });
 
-        const geminiRes = await fetch(GEMINI_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": GEMINI_API_KEY!,
-          },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemInstruction }] },
-            contents,
-            generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
-          }),
-          signal: controller.signal,
-        });
-        clearTimeout(timeoutId);
+        const payload = {
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          contents,
+          generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
+        };
 
-        const geminiText = await geminiRes.text();
-        log({
-          where: "gemini_after_fetch",
-          ok: geminiRes.ok,
-          status: geminiRes.status,
-          body: geminiText.slice(0, 500),
-        });
+        let lastQuotaModel: string | null = null;
+        for (const model of GEMINI_MODELS) {
+          const geminiRes = await fetch(geminiUrl(model), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": GEMINI_API_KEY!,
+            },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
+          });
+          const geminiText = await geminiRes.text();
+          log({
+            where: "gemini_after_fetch",
+            model,
+            ok: geminiRes.ok,
+            status: geminiRes.status,
+            body: geminiText.slice(0, 500),
+          });
 
-        if (!geminiRes.ok) {
+          if (geminiRes.ok) {
+            const geminiData = JSON.parse(geminiText) as {
+              candidates?: { content?: { parts?: { text?: string }[] } }[];
+            };
+            const raw =
+              geminiData.candidates?.[0]?.content?.parts?.[0]?.text ??
+              "I couldn’t find a good answer based on the current context.";
+            answer = typeof raw === "string" ? raw.trim() : String(raw).trim();
+            break;
+          }
+
           const isQuota = geminiRes.status === 429;
-          const isResourceExhausted = geminiText.includes("RESOURCE_EXHAUSTED") || geminiText.includes("quota");
+          const isResourceExhausted =
+            geminiText.includes("RESOURCE_EXHAUSTED") || geminiText.includes("quota");
           const isInvalidKey =
             geminiRes.status === 400 &&
             (geminiText.includes("API key not valid") || geminiText.includes("INVALID_ARGUMENT"));
-          let userMsg =
-            "I couldn’t reach the AI service right now. Please try again later or contact Sai directly.";
+
           if (isInvalidKey) {
-            userMsg =
-              "The AI key for this assistant is missing or invalid. Get a free key at https://aistudio.google.com/apikey and set GEMINI_API_KEY in .env.local (restart the dev server after).";
-          } else if (isQuota || isResourceExhausted) {
-            userMsg =
-              "The AI assistant has reached its free-tier limit for now. Please try again in a few minutes or contact Sai directly.";
+            clearTimeout(timeoutId);
+            return NextResponse.json(
+              {
+                answer:
+                  "The AI key for this assistant is missing or invalid. Get a free key at https://aistudio.google.com/apikey and set GEMINI_API_KEY in .env.local (restart the dev server after).",
+                ...(process.env.NODE_ENV === "development" && {
+                  debug: `Gemini ${geminiRes.status}: ${geminiText.slice(0, 200)}`,
+                }),
+              },
+              { status: 502 }
+            );
           }
+
+          if (isQuota || isResourceExhausted) {
+            lastQuotaModel = model;
+            continue;
+          }
+
+          clearTimeout(timeoutId);
           return NextResponse.json(
             {
-              answer: userMsg,
+              answer:
+                "I couldn’t reach the AI service right now. Please try again later or contact Sai directly.",
               ...(process.env.NODE_ENV === "development" && {
                 debug: `Gemini ${geminiRes.status}: ${geminiText.slice(0, 200)}`,
               }),
@@ -207,17 +214,22 @@ export async function POST(request: Request) {
           );
         }
 
-        const geminiData = JSON.parse(geminiText) as {
-          candidates?: { content?: { parts?: { text?: string }[] } }[];
-        };
-        const raw =
-          geminiData.candidates?.[0]?.content?.parts?.[0]?.text ??
-          "I couldn’t find a good answer based on the current context.";
-        answer = typeof raw === "string" ? raw.trim() : String(raw).trim();
+        clearTimeout(timeoutId);
+        if (typeof answer === "undefined") {
+          return NextResponse.json(
+            {
+              answer:
+                "The AI assistant has reached its free-tier limit for now. Please try again in a few minutes or contact Sai directly.",
+              ...(process.env.NODE_ENV === "development" &&
+                lastQuotaModel && { debug: `All models quota exceeded (last tried: ${lastQuotaModel})` }),
+            },
+            { status: 502 }
+          );
+        }
       } else {
         const messages: { role: string; content: string }[] = [
           { role: "system", content: SYSTEM_INSTRUCTIONS },
-          { role: "system", content: `Context about Sai (resume + projects + skills):\n${RESUME_CONTEXT}` },
+          { role: "system", content: `Context about Sai (full portfolio — experience, education, projects, skills, contact):\n${buildPortfolioContext()}` },
           ...history.map((m) => ({ role: m.role, content: m.content })),
           { role: "user", content: trimmedMessage },
         ];
@@ -290,6 +302,12 @@ export async function POST(request: Request) {
       );
     }
 
+    if (typeof answer === "undefined") {
+      return NextResponse.json(
+        { answer: "I couldn’t generate a response. Please try again later." },
+        { status: 502 }
+      );
+    }
     return NextResponse.json({ answer });
   } catch (error) {
     return NextResponse.json(
