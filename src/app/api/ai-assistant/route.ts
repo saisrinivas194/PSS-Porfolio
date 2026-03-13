@@ -36,12 +36,13 @@ const LLM_TIMEOUT_MS = 28000;
 
 /**
  * Many models exist in AI Studio; we try these in order.
- * When one hits quota (429), the next is used. Order: higher quota first.
+ * When one hits quota (429) or 404 (not found), the next is used.
+ * Order: stable 2.5 first, then higher-quota / newer.
  */
 const GEMINI_MODELS = [
-  "gemini-3.1-flash-lite", // 15 RPM, 250K TPM, 500 RPD — try first (best quota)
+  "gemini-2.5-flash",      // 5 RPM, 250K TPM, 20 RPD — most widely available
   "gemini-2.5-flash-lite", // 10 RPM, 250K TPM, 20 RPD
-  "gemini-2.5-flash",      // 5 RPM, 250K TPM, 20 RPD
+  "gemini-3.1-flash-lite", // 15 RPM, 250K TPM, 500 RPD
   "gemini-3-flash",        // 5 RPM, 250K TPM, 20 RPD
 ];
 const geminiUrl = (model: string) =>
@@ -181,6 +182,10 @@ export async function POST(request: Request) {
           const isInvalidKey =
             geminiRes.status === 400 &&
             (geminiText.includes("API key not valid") || geminiText.includes("INVALID_ARGUMENT"));
+          const isModelNotFound =
+            geminiRes.status === 404 ||
+            geminiText.includes("is not found") ||
+            geminiText.includes("not supported for generateContent");
 
           if (isInvalidKey) {
             clearTimeout(timeoutId);
@@ -196,8 +201,8 @@ export async function POST(request: Request) {
             );
           }
 
-          if (isQuota || isResourceExhausted) {
-            lastQuotaModel = model;
+          if (isQuota || isResourceExhausted || isModelNotFound) {
+            if (isQuota || isResourceExhausted) lastQuotaModel = model;
             continue;
           }
 
@@ -207,7 +212,7 @@ export async function POST(request: Request) {
               answer:
                 "I couldn’t reach the AI service right now. Please try again later or contact Sai directly.",
               ...(process.env.NODE_ENV === "development" && {
-                debug: `Gemini ${geminiRes.status}: ${geminiText.slice(0, 200)}`,
+                debug: `Gemini ${geminiRes.status} (${model}): ${geminiText.slice(0, 300)}`,
               }),
             },
             { status: 502 }
@@ -216,12 +221,17 @@ export async function POST(request: Request) {
 
         clearTimeout(timeoutId);
         if (typeof answer === "undefined") {
+          const quotaMsg =
+                "The AI assistant has reached its free-tier limit for now. Please try again in a few minutes or contact Sai directly.";
+          const unavailableMsg =
+                "The AI assistant couldn’t connect to a model right now. Please try again later or contact Sai directly.";
           return NextResponse.json(
             {
-              answer:
-                "The AI assistant has reached its free-tier limit for now. Please try again in a few minutes or contact Sai directly.",
+              answer: lastQuotaModel ? quotaMsg : unavailableMsg,
               ...(process.env.NODE_ENV === "development" &&
-                lastQuotaModel && { debug: `All models quota exceeded (last tried: ${lastQuotaModel})` }),
+                (lastQuotaModel
+                  ? { debug: `All models quota exceeded (last tried: ${lastQuotaModel})` }
+                  : { debug: "All models failed (404 or error). Check GEMINI_API_KEY and model availability." })),
             },
             { status: 502 }
           );
