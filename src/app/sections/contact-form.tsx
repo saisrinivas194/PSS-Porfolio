@@ -107,7 +107,7 @@ export function ContactForm() {
           onChange={(e) => setMessage(e.target.value)}
           maxLength={5000}
           className="w-full resize-none rounded-lg border border-zinc-800 bg-black/40 px-3 py-2 text-sm text-zinc-100 outline-none ring-blue-500/0 transition focus:border-blue-500/80 focus:ring-2 focus:ring-blue-500/30"
-          placeholder="Tell me about the role, team, or project..."
+          placeholder="Tell me about the data analyst, data engineer, or BI role, team, or project..."
         />
       </div>
 

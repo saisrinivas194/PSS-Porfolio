@@ -13,7 +13,7 @@ export const CONTACT_LINKS = {
 };
 
 /** Current location for recruiters. */
-export const LOCATION = "Harrison, New Jersey, USA";
+export const LOCATION = "New Jersey, United States";
 
 /** Work authorization: F1 OPT EAD with 2-year STEM OPT extension. */
 export const WORK_AUTHORIZATION = "F1 OPT EAD (2-year STEM OPT extension)";
@@ -256,7 +256,7 @@ export function buildPortfolioContext(): string {
   const sections: string[] = [];
 
   sections.push("Candidate: Sai Srinivas Pedhapolla");
-  sections.push("Title: Data Engineer | Data Science Graduate Student");
+  sections.push("Title: Data Analyst, Data Engineer & BI Professional | Data Science Graduate Student");
   sections.push("");
   sections.push("Professional summary:");
   sections.push(HERO_SUMMARY);

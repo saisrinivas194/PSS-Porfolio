@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const GITHUB_USER = "saisrinivas194";
 const REPOS_PER_PAGE = 100;
-const MAX_REPOS_RETURN = 100;
+const MAX_REPOS_RETURN = 20;
 
 type RepoItem = {
   id?: number;
@@ -12,6 +12,11 @@ type RepoItem = {
   stargazers_count?: number;
   language?: string | null;
   fork?: boolean;
+  updated_at?: string;
+};
+
+type EventItem = {
+  created_at?: string;
 };
 
 function isRepoItem(r: unknown): r is RepoItem {
@@ -20,19 +25,26 @@ function isRepoItem(r: unknown): r is RepoItem {
 
 export async function GET() {
   try {
-    const [userRes, reposRes] = await Promise.all([
+    const [userRes, reposRes, eventsRes] = await Promise.all([
       fetch(`https://api.github.com/users/${GITHUB_USER}`, {
-        next: { revalidate: 3600 },
+        cache: "no-store",
         headers: { Accept: "application/vnd.github.v3+json" },
       }),
       fetch(
-        `https://api.github.com/users/${GITHUB_USER}/repos?per_page=${REPOS_PER_PAGE}&sort=updated`,
-        { next: { revalidate: 900 }, headers: { Accept: "application/vnd.github.v3+json" } }
+        `https://api.github.com/users/${GITHUB_USER}/repos?per_page=${REPOS_PER_PAGE}&sort=updated&direction=desc`,
+        { cache: "no-store", headers: { Accept: "application/vnd.github.v3+json" } }
       ),
+      fetch(`https://api.github.com/users/${GITHUB_USER}/events/public?per_page=100`, {
+        cache: "no-store",
+        headers: { Accept: "application/vnd.github.v3+json" },
+      }),
     ]);
 
-    if (!userRes.ok || !reposRes.ok) {
-      const status = userRes.status === 404 || reposRes.status === 404 ? 404 : 502;
+    if (!userRes.ok || !reposRes.ok || !eventsRes.ok) {
+      const status =
+        userRes.status === 404 || reposRes.status === 404 || eventsRes.status === 404
+          ? 404
+          : 502;
       return NextResponse.json(
         { error: "Failed to fetch GitHub data" },
         { status }
@@ -41,10 +53,13 @@ export async function GET() {
 
     let user: { public_repos?: number } = {};
     let repos: unknown[] = [];
+    let events: unknown[] = [];
     try {
       user = await userRes.json();
       const raw = await reposRes.json();
+      const eventsRaw = await eventsRes.json();
       repos = Array.isArray(raw) ? raw : [];
+      events = Array.isArray(eventsRaw) ? eventsRaw : [];
     } catch {
       return NextResponse.json(
         { error: "Invalid response from GitHub" },
@@ -54,7 +69,6 @@ export async function GET() {
 
     const sortedRepos = (repos as RepoItem[])
       .filter((r) => isRepoItem(r) && !r.fork && r.name != null && r.html_url != null)
-      .sort((a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0))
       .slice(0, MAX_REPOS_RETURN)
       .map((r) => ({
         id: r.id ?? 0,
@@ -72,6 +86,28 @@ export async function GET() {
       }
     }
 
+    const now = new Date();
+    const eventCountsByDay = new Map<string, number>();
+    for (const event of events as EventItem[]) {
+      if (!event || typeof event !== "object" || typeof event.created_at !== "string") {
+        continue;
+      }
+      const date = event.created_at.slice(0, 10);
+      const created = new Date(event.created_at);
+      const diffMs = now.getTime() - created.getTime();
+      if (diffMs > 365 * 24 * 60 * 60 * 1000) continue;
+      eventCountsByDay.set(date, (eventCountsByDay.get(date) ?? 0) + 1);
+    }
+
+    const dailyCounts = [...eventCountsByDay.keys()]
+      .sort()
+      .map((date) => ({ date, count: eventCountsByDay.get(date) ?? 0 }));
+
+    const recentThirty = dailyCounts.slice(-30);
+    const lastDayCount = recentThirty.length > 0 ? recentThirty[recentThirty.length - 1].count : 0;
+    const lastMonthCount = recentThirty.reduce((sum, entry) => sum + entry.count, 0);
+    const lastYearCount = dailyCounts.reduce((sum, entry) => sum + entry.count, 0);
+
     const topLanguages = Object.entries(languageCounts)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
@@ -81,6 +117,12 @@ export async function GET() {
       publicRepos: typeof user.public_repos === "number" ? user.public_repos : 0,
       repos: sortedRepos,
       topLanguages,
+      contributionEvents: {
+        lastDayCount,
+        lastMonthCount,
+        lastYearCount,
+        dailyCounts,
+      },
     });
   } catch {
     return NextResponse.json(

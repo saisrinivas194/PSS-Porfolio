@@ -121,9 +121,9 @@ export default function Home() {
               Within 30 seconds, recruiters can see:
             </p>
             <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-              <li>— 3 internships across data engineering and backend systems</li>
-              <li>— Hands-on ETL, data modeling, and ML data preparation</li>
-              <li>— Python + SQL + cloud platforms (AWS, GCP, Snowflake)</li>
+              <li>— 3 internships across data analytics, engineering, and BI</li>
+              <li>— Hands-on ETL/ELT, data modeling, dashboards, and analytics</li>
+              <li>— Python + SQL + Power BI + Tableau + cloud platforms (AWS, GCP, Snowflake)</li>
               <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
             </ul>
             <p className="mt-4 text-xs text-zinc-400">
@@ -230,7 +230,7 @@ export default function Home() {
               GitHub Activity
             </p>
             <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-              Recent contributions and top languages.
+              Monthly contributions and top languages.
             </h2>
           </div>
         </div>
@@ -441,7 +441,7 @@ export default function Home() {
             Contact
           </p>
           <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-            Let&apos;s talk about data roles.
+            Let&apos;s talk about data analyst, data engineer, and BI roles.
           </h2>
         </div>
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">

@@ -1,8 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const CONTACT_EMAIL = "saisrinivaspedhapolla@gmail.com";
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
 
@@ -13,6 +11,8 @@ export async function POST(request: Request) {
       { status: 503 }
     );
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   let body: { name?: string; email?: string; phone?: string; message?: string };
   try {
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   const html = `
     <div style="font-family: system-ui, sans-serif; max-width: 560px; margin: 0 auto; color: #1f2937;">
       <div style="background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); padding: 24px 28px; border-radius: 12px 12px 0 0;">
-        <h1 style="margin: 0; font-size: 18px; font-weight: 600; color: #f8fafc;">Portfolio contact – Let's talk about data roles</h1>
+        <h1 style="margin: 0; font-size: 18px; font-weight: 600; color: #f8fafc;">Portfolio contact – Let's talk about data analyst, data engineer, and BI roles</h1>
       </div>
       <div style="background: #f8fafc; padding: 24px 28px; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;">
         <table style="width: 100%; border-collapse: collapse;">
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
       from: FROM_EMAIL,
       to: CONTACT_EMAIL,
       replyTo: email,
-      subject: `Portfolio contact: ${name} – Let's talk about data roles`,
+      subject: `Portfolio contact: ${name} – Let's talk about data analyst, data engineer, and BI roles`,
       html,
     });
 

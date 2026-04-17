@@ -12,9 +12,17 @@ type Repo = {
   language: string | null;
 };
 
+type ContributionEvents = {
+  lastDayCount: number;
+  lastMonthCount: number;
+  lastYearCount: number;
+  dailyCounts: { date: string; count: number }[];
+};
+
 type GithubSummary = {
   publicRepos: number;
   topLanguages: { name: string; count: number }[];
+  contributions?: ContributionEvents;
 };
 
 const ROTATE_INTERVAL_MS = 4500;
@@ -42,6 +50,20 @@ function safeFeaturedReposKey(featuredRepos: string[] | undefined): string {
   return featuredRepos.map((e) => (typeof e === "string" ? e : "")).join(",");
 }
 
+type LegendItemProps = {
+  color: string;
+  label: string;
+};
+
+function LegendItem({ color, label }: LegendItemProps) {
+  return (
+    <span className="inline-flex items-center gap-2">
+      <span className={`inline-block h-3 w-3 rounded-sm ${color} border border-zinc-900`} />
+      {label}
+    </span>
+  );
+}
+
 export function GithubProjects({ featuredRepos = [] }: { featuredRepos?: string[] }) {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +75,7 @@ export function GithubProjects({ featuredRepos = [] }: { featuredRepos?: string[
     let cancelled = false;
     async function load() {
       try {
-        const res = await fetch("/api/github");
+        const res = await fetch("/api/github", { cache: "no-store" });
         if (cancelled) return;
         if (!res.ok) {
           throw new Error("Failed to load repositories");
@@ -207,13 +229,14 @@ export function GithubProjects({ featuredRepos = [] }: { featuredRepos?: string[
 
 export function GithubActivity() {
   const [summary, setSummary] = useState<GithubSummary | null>(null);
+  const [viewMode, setViewMode] = useState<"year" | "month">("year");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("/api/github");
+        const res = await fetch("/api/github", { cache: "no-store" });
         if (!res.ok) {
           throw new Error("Failed to load GitHub summary");
         }
@@ -221,6 +244,7 @@ export function GithubActivity() {
         setSummary({
           publicRepos: data.publicRepos ?? 0,
           topLanguages: data.topLanguages ?? [],
+          contributions: data.contributionEvents ?? undefined,
         });
       } catch (err) {
         setError("Unable to load GitHub stats right now.");
@@ -237,17 +261,82 @@ export function GithubActivity() {
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-400">
           Contributions
         </p>
-        <div className="rounded-xl border border-zinc-800 bg-black/40 p-2">
-          <img
-            src="https://ghchart.rshah.org/4444ff/saisrinivas194"
-            alt="GitHub contribution graph for saisrinivas194"
-            className="w-full rounded-lg border border-zinc-800/60 bg-zinc-950"
-            loading="lazy"
-          />
+        <div className="mb-4 flex flex-wrap gap-2">
+          {(["year", "month"] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setViewMode(option)}
+              className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
+                viewMode === option
+                  ? "border-blue-400 bg-blue-500 text-white"
+                  : "border-zinc-700 bg-zinc-950 text-zinc-300 hover:border-blue-400 hover:text-white"
+              }`}
+            >
+              {option === "year" ? "Year" : "Month"}
+            </button>
+          ))}
+        </div>
+        <div className="rounded-xl border border-zinc-800 bg-black/40 p-4">
+          {viewMode === "year" ? (
+            <img
+              src="https://ghchart.rshah.org/4444ff/saisrinivas194"
+              alt="GitHub contribution graph for saisrinivas194"
+              className="w-full rounded-lg border border-zinc-800/60 bg-zinc-950"
+              loading="lazy"
+            />
+          ) : summary?.contributions ? (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-sm text-zinc-300">
+                  Contributions in the last 30 days.
+                </p>
+                <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-400">
+                  <span className="font-semibold text-zinc-100">Legend</span>
+                  <LegendItem color="bg-zinc-800" label="0" />
+                  <LegendItem color="bg-blue-600" label="1" />
+                  <LegendItem color="bg-blue-500" label="2-3" />
+                  <LegendItem color="bg-blue-400" label="4+" />
+                </div>
+              </div>
+              <div className="grid grid-cols-7 gap-1">
+                {summary.contributions.dailyCounts.slice(-30).map((day) => {
+                  const intensity =
+                    day.count === 0
+                      ? "bg-zinc-800"
+                      : day.count === 1
+                      ? "bg-blue-600"
+                      : day.count <= 3
+                      ? "bg-blue-500"
+                      : "bg-blue-400";
+                  return (
+                    <div
+                      key={day.date}
+                      className="group rounded-md border border-zinc-900 bg-zinc-950"
+                      title={`${day.date}: ${day.count} contribution${day.count === 1 ? "" : "s"}`}
+                    >
+                      <div className={`mx-auto my-1 h-12 w-10 rounded-sm ${intensity}`} />
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-xs text-zinc-400">
+                <span>
+                  Start: {summary.contributions.dailyCounts.slice(-30)[0]?.date ?? "—"}
+                </span>
+                <span className="text-right">
+                  End: {summary.contributions.dailyCounts.slice(-30).at(-1)?.date ?? "—"}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-zinc-300">
+              Monthly contribution data is loading or unavailable.
+            </p>
+          )}
         </div>
         <p className="text-xs text-zinc-400">
-          Snapshot of recent GitHub contributions. Darker squares indicate more
-          activity.
+          Toggle between year and month views to inspect GitHub activity.
         </p>
       </div>
       <div className="space-y-3 rounded-2xl border border-zinc-800 bg-zinc-950/40 p-4">
