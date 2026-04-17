@@ -26,7 +26,7 @@ export default function Home() {
             Sai Srinivas Pedhapolla
           </h1>
           <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-            Data Engineer | Data Science Graduate Student
+            Data Analyst, Analytics Engineer & BI-focused Data Professional
           </p>
           <ContactIconsBar links={CONTACT_LINKS} className="mt-3 sm:hidden" />
         </div>
@@ -58,14 +58,14 @@ export default function Home() {
             Overview
           </p>
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Building reliable data pipelines and ML-ready datasets.
+            Delivering analytics-ready pipelines, dashboards, and business insights.
           </h2>
           <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-            Data engineer and data science graduate student focused on building
-            scalable data pipelines, ETL/ELT systems, and machine learning
-            workflows using Python, SQL, and cloud platforms. I design
-            production-grade ingestion, transformation, and validation workflows
-            that keep analytics and ML teams unblocked.
+            Data analyst and analytics engineer with hands-on experience in
+            SQL, Python, ETL/ELT, BI reporting, and dashboarding. I build
+            scalable data workflows, data models, and self-serve analytics
+            solutions that help product, marketing, and operations teams act
+            on trusted business metrics.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -75,7 +75,7 @@ export default function Home() {
               View Projects
             </Link>
             <a
-              href="/Sai%20Srinivas%20Pedhapolla_Data%20Engineer.pdf"
+              href="/Sai_Srinivas_Pedhapolla_Data_Analyst_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
@@ -272,61 +272,65 @@ export default function Home() {
             ]}
           />
           <SkillGroup
-            title="Machine Learning & ML Analysis"
+            title="Machine Learning & Analytics"
             items={[
               "TensorFlow",
-              "PyTorch",
               "scikit-learn",
-              "ML analysis & modeling",
+              "EDA & statistical analysis",
               "Feature engineering",
-              "EDA & statistical modeling",
-              "Model training & evaluation",
-              "NLP basics",
+              "Regression & forecasting",
+              "Hypothesis testing",
+              "Data storytelling",
+              "Anomaly detection",
             ]}
           />
           <SkillGroup
-            title="Full Stack & AI-Based Development"
+            title="Analytics Apps & Reporting"
             items={[
-              "Python full stack",
-              "AI-based full stack apps",
-              "Next.js / React",
-              "REST APIs (FastAPI, Django)",
-              "Frontend + backend integration",
+              "Python analytics apps",
+              "BI dashboards and reporting",
+              "Power BI",
+              "Tableau",
+              "Looker / Looker Studio",
+              "Google Data Studio",
+              "Self-serve analytics",
+              "Dashboard design",
             ]}
           />
           <SkillGroup
             title="Programming & Query"
-            items={["Python", "SQL", "Java", "JavaScript", "Bash"]}
+            items={["Python", "SQL", "PostgreSQL", "MySQL", "T-SQL", "PL/SQL", "Bash"]}
           />
           <SkillGroup
-            title="Git, Hosting & Deployment"
+            title="Git, Workflow & Automation"
             items={[
               "Git / GitHub",
-              "Vercel",
-              "Hosting & deployment",
-              "Domain management",
-              "Railway",
-              "CI/CD basics",
+              "CI/CD",
+              "Test automation",
+              "Jira / Agile",
+              "Pair programming",
+              "Documentation",
             ]}
           />
           <SkillGroup
-            title="Cloud, Data & Hosting Platforms"
-            items={["AWS", "Snowflake", "Firebase", "Railway", "GCP", "Vercel"]}
+            title="Cloud, Data & Warehousing"
+            items={["AWS", "GCP", "Snowflake", "BigQuery", "Redshift", "Azure"]}
           />
           <SkillGroup
-            title="Databases"
-            items={["PostgreSQL", "MongoDB", "SQL Server", "Snowflake"]}
+            title="Databases & Data Modeling"
+            items={["PostgreSQL", "MySQL", "SQL Server", "Snowflake", "MongoDB", "NoSQL"]}
           />
           <SkillGroup
-            title="Tools & Workflow"
+            title="Tools & Productivity"
             items={[
-              "Cursor",
-              "VS Code",
-              "Git / GitHub",
-              "Linux",
-              "Jupyter",
-              "Tableau",
+              "Excel",
+              "Advanced Excel",
+              "Pivot Tables",
+              "VLOOKUP / XLOOKUP",
+              "Google Sheets",
+              "Jupyter Notebook",
               "Power BI",
+              "Tableau",
             ]}
           />
         </div>
@@ -406,7 +410,7 @@ export default function Home() {
             </h2>
           </div>
           <a
-            href="/Sai%20Srinivas%20Pedhapolla_Data%20Engineer.pdf"
+            href="/Sai_Srinivas_Pedhapolla_Data_Analyst_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="text-xs font-medium text-blue-300 hover:text-blue-200"
@@ -416,17 +420,17 @@ export default function Home() {
         </div>
         <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 text-xs text-zinc-300 sm:text-sm">
           <p className="font-semibold text-zinc-100">
-            Summary — Entry-level Data Engineer &amp; Data Science Graduate
+            Summary — Entry-level Data Analyst &amp; Analytics Engineer
           </p>
           <p className="mt-2">
-            Internship experience designing and operating Python-based data
-            pipelines, ETL/ELT workflows, and backend data services. Hands-on
-            with data ingestion from APIs, files, and relational databases,
-            plus ML data preparation and Linux-based automation.
+            Internship experience designing and operating Python and SQL data
+            pipelines, ETL/ELT workflows, BI reporting dashboards, and analytics
+            automation. Built reliable data models and cleaned analytics-ready
+            datasets for product and marketing insights.
           </p>
           <p className="mt-2">
-            Proficient in Python, SQL, Bash, data modeling, schema management,
-            big data concepts, and Git-based collaboration.
+            Proficient in Python, SQL, Tableau, Power BI, data modeling, schema
+            management, and Git-based collaboration.
           </p>
         </div>
       </section>

@@ -21,19 +21,22 @@ export const WORK_AUTHORIZATION = "F1 OPT EAD (2-year STEM OPT extension)";
 export const TECH_BADGES = [
   "Python",
   "SQL",
-  "ETL/ELT",
-  "AWS",
-  "Snowflake",
-  "Firebase",
-  "Git",
-  "Vercel",
-  "Cursor",
-  "Railway",
-  "TensorFlow",
   "PostgreSQL",
-  "Prompt Engineering",
-  "Machine Learning",
-  "Full Stack",
+  "MySQL",
+  "SQL Server",
+  "ETL/ELT",
+  "Snowflake",
+  "Power BI",
+  "Tableau",
+  "Looker",
+  "dbt",
+  "AWS",
+  "GCP",
+  "BigQuery",
+  "Git",
+  "Jupyter Notebook",
+  "Data Modeling",
+  "Dashboarding",
 ];
 
 export type ProjectCard = {
@@ -47,7 +50,7 @@ export type ProjectCard = {
 export const PROJECT_CATEGORIES: { title: string; description?: string; projects: ProjectCard[] }[] = [
   {
     title: "Pipelines & Data",
-    description: "ETL, data uploaders, and unified pipeline systems.",
+    description: "ETL, data ingestion, and analytics-ready pipeline systems.",
     projects: [
       {
         name: "Unified Pipeline Suite",
@@ -57,7 +60,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
           "Shared Firebase, IndexAlign, Snowflake connectors; unified fuzzy matching",
           "Edge-case flagging and manual review exports",
         ],
-        tags: ["Python", "Firebase", "Snowflake", "IndexAlign"],
+        tags: ["Python", "Firebase", "Snowflake", "Analytics"],
       },
       {
         name: "Executive (Execuitive)",
@@ -67,7 +70,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
           "Aggregates by election cycle and party (Republican/Democratic)",
           "Uploads to Firebase Realtime Database; optional contributor–company crosswalk",
         ],
-        tags: ["Python", "Firebase"],
+        tags: ["Python", "Firebase", "SQL", "Analytics"],
       },
       {
         name: "PAC Data Pipelines",
@@ -76,7 +79,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
           "Company PAC donation data pipelines and processing",
           "Structured for analytics and reporting",
         ],
-        tags: ["Python", "Data"],
+        tags: ["Python", "SQL", "Analytics"],
       },
       {
         name: "Contact & Subsidiary Uploader",
@@ -243,7 +246,7 @@ export const EDUCATION = [
 ];
 
 const HERO_SUMMARY =
-  "Data engineer and data science graduate student focused on building scalable data pipelines, ETL/ELT systems, and machine learning workflows using Python, SQL, and cloud platforms. Design production-grade ingestion, transformation, and validation workflows that keep analytics and ML teams unblocked.";
+  "Data analyst and analytics engineer focused on building scalable data pipelines, ETL/ELT systems, BI reporting, and data visualization workflows using Python, SQL, Power BI, Tableau, and cloud platforms. Design production-grade ingestion, transformation, and validation workflows that keep analytics and business teams unblocked.";
 
 /**
  * Builds the full portfolio context string for the AI assistant (JAD).
