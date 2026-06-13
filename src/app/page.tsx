@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import {
   CONTACT_LINKS,
@@ -13,6 +14,7 @@ import { GithubActivity } from "./sections/github";
 import { ChatAssistant } from "./sections/chat-assistant";
 import { ContactForm } from "./sections/contact-form";
 import { ContactIconsBar, ContactIconsList } from "./sections/contact-icons";
+import { PrintButton } from "./sections/print-button";
 
 export default function Home() {
   return (
@@ -26,7 +28,7 @@ export default function Home() {
             Sai Srinivas Pedhapolla
           </h1>
           <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-            Data Analyst, Analytics Engineer & BI-focused Data Professional
+            Data Analyst · Data Engineer · AI Engineer · BI Professional
           </p>
           <ContactIconsBar links={CONTACT_LINKS} className="mt-3 sm:hidden" />
         </div>
@@ -58,14 +60,14 @@ export default function Home() {
             Overview
           </p>
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            Delivering analytics-ready pipelines, dashboards, and business insights.
+            Delivering analytics pipelines, AI systems, and business insights.
           </h2>
           <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-            Data analyst and analytics engineer with hands-on experience in
-            SQL, Python, ETL/ELT, BI reporting, and dashboarding. I build
-            scalable data workflows, data models, and self-serve analytics
-            solutions that help product, marketing, and operations teams act
-            on trusted business metrics.
+            Data analyst, data engineer, and AI engineer with hands-on experience in
+            SQL, Python, ETL/ELT, BI reporting, LLM APIs, RAG pipelines, and ML model
+            deployment. I build scalable data workflows, data models, and AI-powered
+            solutions that help product, analytics, and operations teams act on
+            trusted data and intelligent automation.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -75,7 +77,7 @@ export default function Home() {
               View Projects
             </Link>
             <a
-              href="/Sai_Srinivas_Pedhapolla_Data_Analyst_Resume.pdf"
+              href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
               target="_blank"
               rel="noreferrer"
               className="rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
@@ -121,9 +123,9 @@ export default function Home() {
               Within 30 seconds, recruiters can see:
             </p>
             <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-              <li>— 3 internships across data analytics, engineering, and BI</li>
-              <li>— Hands-on ETL/ELT, data modeling, dashboards, and analytics</li>
-              <li>— Python + SQL + Power BI + Tableau + cloud platforms (AWS, GCP, Snowflake)</li>
+              <li>— 3 internships across data analytics, engineering, and AI</li>
+              <li>— ETL/ELT, data modeling, dashboards, LLM APIs, RAG, and ML deployment</li>
+              <li>— Python · SQL · TensorFlow · PyTorch · LangChain · Power BI · Tableau · AWS · GCP · Snowflake</li>
               <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
             </ul>
             <p className="mt-4 text-xs text-zinc-400">
@@ -261,20 +263,25 @@ export default function Home() {
             ]}
           />
           <SkillGroup
-            title="AI & Prompting"
+            title="AI Engineering"
             items={[
-              "Prompt engineering",
-              "LLM APIs (OpenAI, etc.)",
+              "LLM APIs (OpenAI, Gemini, Claude)",
               "RAG (Retrieval-Augmented Generation)",
-              "AI assistant design",
-              "Prompt design & optimization",
-              "Context window management",
+              "LangChain / LlamaIndex",
+              "Hugging Face Transformers",
+              "LLM Fine-tuning",
+              "Prompt engineering & optimization",
+              "AI assistant / agent design",
+              "Vector databases (Pinecone, Chroma)",
+              "Model evaluation & benchmarking",
+              "FastAPI AI microservices",
             ]}
           />
           <SkillGroup
             title="Machine Learning & Analytics"
             items={[
               "TensorFlow",
+              "PyTorch",
               "scikit-learn",
               "EDA & statistical analysis",
               "Feature engineering",
@@ -282,6 +289,7 @@ export default function Home() {
               "Hypothesis testing",
               "Data storytelling",
               "Anomaly detection",
+              "Model deployment (Docker, FastAPI)",
             ]}
           />
           <SkillGroup
@@ -399,39 +407,179 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="resume" className="space-y-4">
+      <section id="resume" className="space-y-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
               Resume
             </p>
             <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-              One-page resume snapshot.
+              Full resume — inline.
             </h2>
           </div>
-          <a
-            href="/Sai_Srinivas_Pedhapolla_Data_Analyst_Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs font-medium text-blue-300 hover:text-blue-200"
-          >
-            Download PDF →
-          </a>
+          <div className="flex gap-3">
+            <PrintButton />
+            <a
+              href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-zinc-700 px-4 py-2 text-xs font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
+            >
+              Download PDF →
+            </a>
+          </div>
         </div>
-        <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 text-xs text-zinc-300 sm:text-sm">
-          <p className="font-semibold text-zinc-100">
-            Summary — Entry-level Data Analyst &amp; Analytics Engineer
-          </p>
-          <p className="mt-2">
-            Internship experience designing and operating Python and SQL data
-            pipelines, ETL/ELT workflows, BI reporting dashboards, and analytics
-            automation. Built reliable data models and cleaned analytics-ready
-            datasets for product and marketing insights.
-          </p>
-          <p className="mt-2">
-            Proficient in Python, SQL, Tableau, Power BI, data modeling, schema
-            management, and Git-based collaboration.
-          </p>
+
+        <div id="resume-print" className="rounded-2xl border border-zinc-700 bg-white text-zinc-900 shadow-2xl overflow-hidden">
+          {/* Header — full width */}
+          <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-8 py-6 text-white">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Sai Srinivas Pedhapolla
+            </h2>
+            <p className="mt-1 text-sm font-medium text-blue-100">
+              Data Analyst · Data Engineer · AI Engineer · BI Professional
+            </p>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-blue-100">
+              <span>{CONTACT_LINKS.email}</span>
+              <span>{LOCATION}</span>
+              <a href={CONTACT_LINKS.linkedin} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
+                linkedin.com/in/saisrinivas-194-ssr
+              </a>
+              <a href={CONTACT_LINKS.github} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
+                github.com/saisrinivas194
+              </a>
+              <span className="text-blue-200">{WORK_AUTHORIZATION}</span>
+            </div>
+          </div>
+
+          {/* Body — two-column */}
+          <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+            {/* LEFT SIDEBAR */}
+            <div className="space-y-6 border-r border-zinc-100 bg-zinc-50 px-6 py-6">
+
+              <ResumeBlock title="Summary">
+                <p className="text-xs leading-relaxed text-zinc-600">
+                  Data Analyst, Data Engineer, and AI Engineer with internship experience
+                  building Python/SQL pipelines, ETL/ELT workflows, BI dashboards,
+                  LLM-backed features, RAG pipelines, and ML model evaluation systems.
+                </p>
+              </ResumeBlock>
+
+              <ResumeBlock title="Languages & Query">
+                <ResumeChips items={["Python", "SQL", "PostgreSQL", "MySQL", "T-SQL", "PL/SQL", "Bash"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="AI & ML">
+                <ResumeChips items={["TensorFlow", "PyTorch", "scikit-learn", "Hugging Face", "LangChain", "OpenAI API", "RAG", "LLM Fine-tuning", "Prompt Engineering", "Pinecone", "Chroma"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="Data Engineering">
+                <ResumeChips items={["ETL/ELT", "dbt", "Apache Airflow", "Data Modeling", "Schema Design", "Data Validation", "Batch Processing"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="BI & Visualization">
+                <ResumeChips items={["Power BI", "Tableau", "Looker", "Looker Studio", "Google Data Studio", "Dashboard Design"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="Cloud & Warehousing">
+                <ResumeChips items={["AWS", "GCP", "Azure", "Snowflake", "BigQuery", "Redshift"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="Tools & DevOps">
+                <ResumeChips items={["FastAPI", "Django", "Docker", "Git", "CI/CD", "Jupyter Notebook", "Excel", "Google Sheets"]} />
+              </ResumeBlock>
+
+              <ResumeBlock title="Education">
+                {EDUCATION.map((e) => (
+                  <div key={e.name} className="mt-2 first:mt-0">
+                    <p className="text-xs font-semibold text-zinc-800">{e.name}</p>
+                    <p className="text-xs text-zinc-600">{e.degree}</p>
+                    <p className="text-xs text-zinc-400">{e.period} · GPA {e.gpa}</p>
+                  </div>
+                ))}
+              </ResumeBlock>
+            </div>
+
+            {/* RIGHT MAIN */}
+            <div className="space-y-6 px-6 py-6">
+
+              <ResumeBlock title="Experience">
+                <div className="space-y-5">
+                  {COMPANIES.map((c) => (
+                    <div key={c.name} className="border-l-2 border-blue-200 pl-3">
+                      <div className="flex flex-wrap items-baseline justify-between gap-1">
+                        <a href={c.website} target="_blank" rel="noreferrer" className="text-sm font-bold text-zinc-900 hover:text-blue-600">
+                          {c.name}
+                        </a>
+                        <span className="text-xs text-zinc-400">{c.period}</span>
+                      </div>
+                      <p className="text-xs font-semibold text-blue-600">{c.role}</p>
+                      <p className="text-xs text-zinc-400">{c.location}</p>
+                      <ul className="mt-1.5 space-y-1">
+                        {c.bullets.map((b) => (
+                          <li key={b} className="flex gap-2 text-xs text-zinc-700">
+                            <span className="mt-0.5 shrink-0 text-blue-400">▸</span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </ResumeBlock>
+
+              <ResumeBlock title="Selected Projects">
+                <div className="space-y-4">
+                  {[
+                    {
+                      name: "Tasknex",
+                      url: "https://github.com/saisrinivas194/Tasknex",
+                      demo: "https://tasknex-production.up.railway.app/dashboard",
+                      stack: "Next.js · FastAPI · PostgreSQL · OpenAI",
+                      desc: "AI-powered task and workflow app — describe a goal, get structured phases and tasks. Kanban board with drag-and-drop, JWT auth, and optional LLM generation.",
+                    },
+                    {
+                      name: "Unified Pipeline Suite",
+                      url: "https://github.com/saisrinivas194/unified_pipeline",
+                      stack: "Python · Snowflake · Firebase",
+                      desc: "Unified CLI for Executive, PAC, and Issues data pipelines with shared connectors, fuzzy matching, and manual review exports.",
+                    },
+                    {
+                      name: "Python Web Terminal / Compiler",
+                      url: "https://github.com/saisrinivas194/compiler",
+                      stack: "Python · Flask · JavaScript",
+                      desc: "Run Python in the browser with smart suggestions, syntax highlighting, debug mode, and code history.",
+                    },
+                    {
+                      name: "GA4 Analytics",
+                      url: "https://github.com/saisrinivas194/GA4_analytics",
+                      stack: "Python · Google Analytics 4",
+                      desc: "GA4 data integration pipeline and analytics reporting workflow.",
+                    },
+                  ].map((p) => (
+                    <div key={p.name} className="border-l-2 border-zinc-200 pl-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <a href={p.url} target="_blank" rel="noreferrer" className="text-xs font-bold text-zinc-900 hover:text-blue-600">
+                          {p.name}
+                        </a>
+                        {p.demo && (
+                          <a href={p.demo} target="_blank" rel="noreferrer" className="text-xs text-blue-500 hover:underline">
+                            Live demo →
+                          </a>
+                        )}
+                        <a href={p.url} target="_blank" rel="noreferrer" className="text-xs text-zinc-400 hover:underline">
+                          GitHub →
+                        </a>
+                      </div>
+                      <p className="text-xs text-blue-500">{p.stack}</p>
+                      <p className="mt-0.5 text-xs text-zinc-600">{p.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </ResumeBlock>
+
+            </div>
+          </div>
         </div>
       </section>
 
@@ -441,7 +589,7 @@ export default function Home() {
             Contact
           </p>
           <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-            Let&apos;s talk about data analyst, data engineer, and BI roles.
+            Let&apos;s talk about data analyst, data engineer, AI engineer, and BI roles.
           </h2>
         </div>
         <div className="grid gap-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
@@ -538,6 +686,29 @@ function ExperienceItem({
         ))}
       </ul>
     </li>
+  );
+}
+
+function ResumeBlock({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h4 className="mb-2 border-b border-zinc-200 pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400">
+        {title}
+      </h4>
+      {children}
+    </div>
+  );
+}
+
+function ResumeChips({ items }: { items: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((item) => (
+        <span key={item} className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-blue-100">
+          {item}
+        </span>
+      ))}
+    </div>
   );
 }
 

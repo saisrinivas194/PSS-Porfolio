@@ -54,3 +54,26 @@ a:hover {
 section {
   scroll-margin-top: 96px;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume-print,
+  #resume-print * {
+    visibility: visible;
+  }
+  #resume-print {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+  @page {
+    margin: 0.5in;
+    size: A4;
+  }
+}

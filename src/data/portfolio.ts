@@ -6,9 +6,9 @@
 export const CONTACT_LINKS = {
   email: "saisrinivaspedhapolla@gmail.com",
   phone: undefined as string | undefined,
-  linkedin: "https://www.linkedin.com/in/sai-srinivas-52035319b/",
+  linkedin: "https://www.linkedin.com/in/saisrinivas-194-ssr/",
   github: "https://github.com/saisrinivas194",
-  profileImage: "/images/IMG_9630.png",
+  profileImage: "/images/image.png",
   profileName: "Sai Srinivas",
 };
 
@@ -37,6 +37,18 @@ export const TECH_BADGES = [
   "Jupyter Notebook",
   "Data Modeling",
   "Dashboarding",
+  "TensorFlow",
+  "PyTorch",
+  "scikit-learn",
+  "Hugging Face",
+  "LangChain",
+  "OpenAI API",
+  "FastAPI",
+  "Docker",
+  "LLM Fine-tuning",
+  "RAG",
+  "Prompt Engineering",
+  "Apache Airflow",
 ];
 
 export type ProjectCard = {
@@ -193,6 +205,7 @@ export const COMPANIES = [
       "Engineered Python-based data pipelines and backend services with robust data modeling for analytics and ML workloads.",
       "Architected modular ETL/ELT components for structured and semi-structured data using object-oriented design.",
       "Automated high-volume Linux-based ingestion and validation pipelines with strong logging and error handling.",
+      "Integrated LLM APIs and AI-powered features into backend services to enable intelligent data classification and enrichment.",
     ],
   },
   {
@@ -220,6 +233,7 @@ export const COMPANIES = [
       "Engineered backend services with FastAPI and Django to support scalable ingest and transformation.",
       "Maintained Linux-based data processing applications focusing on throughput and reliability.",
       "Prepared ML training datasets via feature engineering, cleansing, and validation checks.",
+      "Built ML model evaluation pipelines and integrated scikit-learn models into production data workflows.",
     ],
   },
 ];
@@ -246,7 +260,7 @@ export const EDUCATION = [
 ];
 
 const HERO_SUMMARY =
-  "Data analyst and analytics engineer focused on building scalable data pipelines, ETL/ELT systems, BI reporting, and data visualization workflows using Python, SQL, Power BI, Tableau, and cloud platforms. Design production-grade ingestion, transformation, and validation workflows that keep analytics and business teams unblocked.";
+  "Data Analyst, Data Engineer, and AI Engineer focused on building scalable data pipelines, ETL/ELT systems, BI reporting, and AI-powered applications using Python, SQL, TensorFlow, PyTorch, LangChain, Power BI, Tableau, and cloud platforms. Design production-grade ingestion, transformation, and validation workflows; build and deploy LLM-backed systems, RAG pipelines, and ML models that keep analytics and product teams unblocked.";
 
 /**
  * Builds the full portfolio context string for the AI assistant (JAD).
@@ -256,7 +270,7 @@ export function buildPortfolioContext(): string {
   const sections: string[] = [];
 
   sections.push("Candidate: Sai Srinivas Pedhapolla");
-  sections.push("Title: Data Analyst, Data Engineer & BI Professional | Data Science Graduate Student");
+  sections.push("Title: Data Analyst | Data Engineer | AI Engineer | BI Professional | Data Science Graduate Student");
   sections.push("");
   sections.push("Professional summary:");
   sections.push(HERO_SUMMARY);
