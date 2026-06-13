@@ -14,7 +14,6 @@ import { GithubActivity } from "./sections/github";
 import { ChatAssistant } from "./sections/chat-assistant";
 import { ContactForm } from "./sections/contact-form";
 import { ContactIconsBar, ContactIconsList } from "./sections/contact-icons";
-import { PrintButton } from "./sections/print-button";
 
 export default function Home() {
   return (
@@ -407,179 +406,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="resume" className="space-y-6">
+      <section id="resume" className="space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
               Resume
             </p>
             <h2 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-              Full resume — inline.
+              Download my resume.
             </h2>
           </div>
-          <div className="flex gap-3">
-            <PrintButton />
-            <a
-              href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-zinc-700 px-4 py-2 text-xs font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
-            >
-              Download PDF →
-            </a>
-          </div>
+          <a
+            href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full border border-zinc-700 px-4 py-2 text-xs font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
+          >
+            Download PDF →
+          </a>
         </div>
-
-        <div id="resume-print" className="rounded-2xl border border-zinc-700 bg-white text-zinc-900 shadow-2xl overflow-hidden">
-          {/* Header — full width */}
-          <div className="bg-gradient-to-r from-blue-700 to-blue-500 px-8 py-6 text-white">
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              Sai Srinivas Pedhapolla
-            </h2>
-            <p className="mt-1 text-sm font-medium text-blue-100">
-              Data Analyst · Data Engineer · AI Engineer · BI Professional
-            </p>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-blue-100">
-              <span>{CONTACT_LINKS.email}</span>
-              <span>{LOCATION}</span>
-              <a href={CONTACT_LINKS.linkedin} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
-                linkedin.com/in/saisrinivas-194-ssr
-              </a>
-              <a href={CONTACT_LINKS.github} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
-                github.com/saisrinivas194
-              </a>
-              <span className="text-blue-200">{WORK_AUTHORIZATION}</span>
-            </div>
-          </div>
-
-          {/* Body — two-column */}
-          <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
-            {/* LEFT SIDEBAR */}
-            <div className="space-y-6 border-r border-zinc-100 bg-zinc-50 px-6 py-6">
-
-              <ResumeBlock title="Summary">
-                <p className="text-xs leading-relaxed text-zinc-600">
-                  Data Analyst, Data Engineer, and AI Engineer with internship experience
-                  building Python/SQL pipelines, ETL/ELT workflows, BI dashboards,
-                  LLM-backed features, RAG pipelines, and ML model evaluation systems.
-                </p>
-              </ResumeBlock>
-
-              <ResumeBlock title="Languages & Query">
-                <ResumeChips items={["Python", "SQL", "PostgreSQL", "MySQL", "T-SQL", "PL/SQL", "Bash"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="AI & ML">
-                <ResumeChips items={["TensorFlow", "PyTorch", "scikit-learn", "Hugging Face", "LangChain", "OpenAI API", "RAG", "LLM Fine-tuning", "Prompt Engineering", "Pinecone", "Chroma"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="Data Engineering">
-                <ResumeChips items={["ETL/ELT", "dbt", "Apache Airflow", "Data Modeling", "Schema Design", "Data Validation", "Batch Processing"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="BI & Visualization">
-                <ResumeChips items={["Power BI", "Tableau", "Looker", "Looker Studio", "Google Data Studio", "Dashboard Design"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="Cloud & Warehousing">
-                <ResumeChips items={["AWS", "GCP", "Azure", "Snowflake", "BigQuery", "Redshift"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="Tools & DevOps">
-                <ResumeChips items={["FastAPI", "Django", "Docker", "Git", "CI/CD", "Jupyter Notebook", "Excel", "Google Sheets"]} />
-              </ResumeBlock>
-
-              <ResumeBlock title="Education">
-                {EDUCATION.map((e) => (
-                  <div key={e.name} className="mt-2 first:mt-0">
-                    <p className="text-xs font-semibold text-zinc-800">{e.name}</p>
-                    <p className="text-xs text-zinc-600">{e.degree}</p>
-                    <p className="text-xs text-zinc-400">{e.period} · GPA {e.gpa}</p>
-                  </div>
-                ))}
-              </ResumeBlock>
-            </div>
-
-            {/* RIGHT MAIN */}
-            <div className="space-y-6 px-6 py-6">
-
-              <ResumeBlock title="Experience">
-                <div className="space-y-5">
-                  {COMPANIES.map((c) => (
-                    <div key={c.name} className="border-l-2 border-blue-200 pl-3">
-                      <div className="flex flex-wrap items-baseline justify-between gap-1">
-                        <a href={c.website} target="_blank" rel="noreferrer" className="text-sm font-bold text-zinc-900 hover:text-blue-600">
-                          {c.name}
-                        </a>
-                        <span className="text-xs text-zinc-400">{c.period}</span>
-                      </div>
-                      <p className="text-xs font-semibold text-blue-600">{c.role}</p>
-                      <p className="text-xs text-zinc-400">{c.location}</p>
-                      <ul className="mt-1.5 space-y-1">
-                        {c.bullets.map((b) => (
-                          <li key={b} className="flex gap-2 text-xs text-zinc-700">
-                            <span className="mt-0.5 shrink-0 text-blue-400">▸</span>
-                            <span>{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </ResumeBlock>
-
-              <ResumeBlock title="Selected Projects">
-                <div className="space-y-4">
-                  {[
-                    {
-                      name: "Tasknex",
-                      url: "https://github.com/saisrinivas194/Tasknex",
-                      demo: "https://tasknex-production.up.railway.app/dashboard",
-                      stack: "Next.js · FastAPI · PostgreSQL · OpenAI",
-                      desc: "AI-powered task and workflow app — describe a goal, get structured phases and tasks. Kanban board with drag-and-drop, JWT auth, and optional LLM generation.",
-                    },
-                    {
-                      name: "Unified Pipeline Suite",
-                      url: "https://github.com/saisrinivas194/unified_pipeline",
-                      stack: "Python · Snowflake · Firebase",
-                      desc: "Unified CLI for Executive, PAC, and Issues data pipelines with shared connectors, fuzzy matching, and manual review exports.",
-                    },
-                    {
-                      name: "Python Web Terminal / Compiler",
-                      url: "https://github.com/saisrinivas194/compiler",
-                      stack: "Python · Flask · JavaScript",
-                      desc: "Run Python in the browser with smart suggestions, syntax highlighting, debug mode, and code history.",
-                    },
-                    {
-                      name: "GA4 Analytics",
-                      url: "https://github.com/saisrinivas194/GA4_analytics",
-                      stack: "Python · Google Analytics 4",
-                      desc: "GA4 data integration pipeline and analytics reporting workflow.",
-                    },
-                  ].map((p) => (
-                    <div key={p.name} className="border-l-2 border-zinc-200 pl-3">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <a href={p.url} target="_blank" rel="noreferrer" className="text-xs font-bold text-zinc-900 hover:text-blue-600">
-                          {p.name}
-                        </a>
-                        {p.demo && (
-                          <a href={p.demo} target="_blank" rel="noreferrer" className="text-xs text-blue-500 hover:underline">
-                            Live demo →
-                          </a>
-                        )}
-                        <a href={p.url} target="_blank" rel="noreferrer" className="text-xs text-zinc-400 hover:underline">
-                          GitHub →
-                        </a>
-                      </div>
-                      <p className="text-xs text-blue-500">{p.stack}</p>
-                      <p className="mt-0.5 text-xs text-zinc-600">{p.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </ResumeBlock>
-
-            </div>
-          </div>
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 text-sm text-zinc-300">
+          <p className="font-semibold text-zinc-100">Sai Srinivas Pedhapolla</p>
+          <p className="mt-1 text-xs text-blue-400">Data Analyst · Data Engineer · AI Engineer · BI Professional</p>
+          <p className="mt-3 text-xs leading-relaxed">
+            Internship experience building Python and SQL data pipelines, ETL/ELT workflows,
+            BI dashboards, LLM-backed features, RAG pipelines, and ML model evaluation systems.
+            Proficient in Python, SQL, TensorFlow, PyTorch, LangChain, Power BI, Tableau, AWS, GCP, and Snowflake.
+          </p>
+          <a
+            href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-block text-xs font-medium text-blue-300 hover:text-blue-200"
+          >
+            Download full resume (PDF) →
+          </a>
         </div>
       </section>
 
@@ -689,26 +550,4 @@ function ExperienceItem({
   );
 }
 
-function ResumeBlock({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h4 className="mb-2 border-b border-zinc-200 pb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400">
-        {title}
-      </h4>
-      {children}
-    </div>
-  );
-}
-
-function ResumeChips({ items }: { items: string[] }) {
-  return (
-    <div className="flex flex-wrap gap-1.5">
-      {items.map((item) => (
-        <span key={item} className="rounded-full bg-blue-50 px-2.5 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-blue-100">
-          {item}
-        </span>
-      ))}
-    </div>
-  );
-}
 

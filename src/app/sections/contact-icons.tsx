@@ -156,7 +156,7 @@ export function ContactIconsList({ links, className = "" }: { links: ContactLink
                 width={384}
                 height={384}
                 quality={95}
-                className="size-40 rounded-full object-cover sm:size-48"
+                className="size-52 rounded-full object-cover sm:size-64"
                 onError={() => setImageError(true)}
               />
             ) : (
