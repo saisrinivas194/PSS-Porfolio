@@ -203,7 +203,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
 export const COMPANIES = [
   {
     name: "Goods Unite Us",
-    role: "Senior Data Engineer",
+    role: "Data Engineer/Analyst",
     location: "Wisconsin, United States",
     website: "https://goodsuniteus.com",
     logoDomain: "goodsuniteus.com",
