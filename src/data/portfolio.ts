@@ -21,19 +21,26 @@ export const WORK_AUTHORIZATION = "F1 OPT EAD (2-year STEM OPT extension)";
 export const TECH_BADGES = [
   "Python",
   "SQL",
-  "PostgreSQL",
-  "MySQL",
-  "SQL Server",
+  "PL/SQL",
+  "Spark SQL",
+  "PySpark",
   "ETL/ELT",
+  "Databricks",
   "Snowflake",
+  "AWS",
+  "Amazon S3",
+  "AWS Glue",
+  "AWS Lambda",
+  "AWS Redshift",
+  "GCP",
+  "BigQuery",
   "Power BI",
   "Tableau",
   "Looker",
   "dbt",
-  "AWS",
-  "GCP",
-  "BigQuery",
   "Git",
+  "GitHub Actions",
+  "CI/CD",
   "Jupyter Notebook",
   "Data Modeling",
   "Dashboarding",
@@ -196,16 +203,15 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
 export const COMPANIES = [
   {
     name: "Goods Unite Us",
-    role: "Software Intern",
-    location: "New Jersey, USA",
+    role: "Senior Data Engineer",
+    location: "Wisconsin, United States",
     website: "https://goodsuniteus.com",
     logoDomain: "goodsuniteus.com",
     period: "Sep 2025 – Present",
     bullets: [
-      "Engineered Python-based data pipelines and backend services with robust data modeling for analytics and ML workloads.",
-      "Architected modular ETL/ELT components for structured and semi-structured data using object-oriented design.",
-      "Automated high-volume Linux-based ingestion and validation pipelines with strong logging and error handling.",
-      "Integrated LLM APIs and AI-powered features into backend services to enable intelligent data classification and enrichment.",
+      "Built and supported scalable Python, PySpark, SQL, and Databricks ETL workflows to ingest, transform, and validate structured and semi-structured data from multiple sources for analytics, reporting, and downstream application use.",
+      "Designed reusable transformation logic and schema-aware data models, including migration-support work involving Snowflake and Firebase, to improve metadata consistency, dependency awareness, source-to-target integrity, and downstream usability across recurring data workflows.",
+      "Worked with REST API-driven, JSON, and Parquet-based inputs using Python and Pandas to support reliable multi-source data pipelines and prepare analytics-ready datasets for cross-functional business stakeholders.",
     ],
   },
   {
@@ -260,7 +266,7 @@ export const EDUCATION = [
 ];
 
 const HERO_SUMMARY =
-  "Data Analyst, Data Engineer, and AI Engineer focused on building scalable data pipelines, ETL/ELT systems, BI reporting, and AI-powered applications using Python, SQL, TensorFlow, PyTorch, LangChain, Power BI, Tableau, and cloud platforms. Design production-grade ingestion, transformation, and validation workflows; build and deploy LLM-backed systems, RAG pipelines, and ML models that keep analytics and product teams unblocked.";
+  "Data Engineer with 2+ years of experience building and optimizing ETL pipelines, scalable architectures, and analytics-ready data systems using Python, SQL, PySpark, Databricks, and AWS. Experienced in ingesting and transforming structured, semi-structured, and API-driven data from multiple sources, automating manual processes, and improving data quality, reliability, and downstream usability. Strong background in schema-aware transformations, metadata handling, and monitoring-oriented pipeline outputs. Growing hands-on alignment to AI-enabled data workflows, including agentic workflow concepts, LLM-powered systems, API integrations, and cloud-native data infrastructure, with a detail-oriented and problem-solving approach.";
 
 /**
  * Builds the full portfolio context string for the AI assistant (JAD).
@@ -270,7 +276,7 @@ export function buildPortfolioContext(): string {
   const sections: string[] = [];
 
   sections.push("Candidate: Sai Srinivas Pedhapolla");
-  sections.push("Title: Data Analyst | Data Engineer | AI Engineer | BI Professional | Data Science Graduate Student");
+  sections.push("Title: Data Engineer | ETL/ELT & Cloud Pipelines | AI-Enabled Data Systems | Data Science Graduate Student");
   sections.push("");
   sections.push("Professional summary:");
   sections.push(HERO_SUMMARY);

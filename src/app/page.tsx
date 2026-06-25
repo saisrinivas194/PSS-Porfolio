@@ -27,7 +27,7 @@ export default function Home() {
             Sai Srinivas Pedhapolla
           </h1>
           <p className="mt-1 text-sm text-zinc-400 sm:text-base">
-            Data Analyst · Data Engineer · AI Engineer · BI Professional
+            Data Engineer · ETL/ELT & Cloud Pipelines · AI-Enabled Data Systems
           </p>
           <ContactIconsBar links={CONTACT_LINKS} className="mt-3 sm:hidden" />
         </div>
@@ -62,11 +62,14 @@ export default function Home() {
             Delivering analytics pipelines, AI systems, and business insights.
           </h2>
           <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-            Data analyst, data engineer, and AI engineer with hands-on experience in
-            SQL, Python, ETL/ELT, BI reporting, LLM APIs, RAG pipelines, and ML model
-            deployment. I build scalable data workflows, data models, and AI-powered
-            solutions that help product, analytics, and operations teams act on
-            trusted data and intelligent automation.
+            Data engineer with 2+ years of experience building and optimizing
+            ETL pipelines, scalable architectures, and analytics-ready data
+            systems using Python, SQL, PySpark, Databricks, and AWS. I ingest
+            and transform structured, semi-structured, and API-driven data
+            from multiple sources, automate manual processes, and improve
+            data quality, reliability, and downstream usability &mdash; with
+            growing hands-on alignment to AI-enabled data workflows, agentic
+            concepts, and LLM-powered systems.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -122,9 +125,9 @@ export default function Home() {
               Within 30 seconds, recruiters can see:
             </p>
             <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-              <li>— 3 internships across data analytics, engineering, and AI</li>
-              <li>— ETL/ELT, data modeling, dashboards, LLM APIs, RAG, and ML deployment</li>
-              <li>— Python · SQL · TensorFlow · PyTorch · LangChain · Power BI · Tableau · AWS · GCP · Snowflake</li>
+              <li>— 2+ years building ETL/ELT pipelines and analytics-ready data systems</li>
+              <li>— PySpark, Databricks, schema-aware modeling, REST API integration, and growing AI-enabled workflows</li>
+              <li>— Python · SQL · PySpark · Databricks · AWS · Snowflake · RAG/LLM-powered pipelines</li>
               <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
             </ul>
             <p className="mt-4 text-xs text-zinc-400">
@@ -252,27 +255,39 @@ export default function Home() {
             title="Data Engineering"
             items={[
               "ETL / ELT pipelines",
-              "Data ingestion & orchestration",
+              "PySpark / Spark SQL",
+              "Databricks",
+              "Distributed & batch processing",
               "Data modeling & schema design",
               "Data warehousing",
-              "Batch & stream processing",
+              "Query optimization",
               "Data validation & quality",
               "dbt",
               "Apache Airflow",
             ]}
           />
           <SkillGroup
-            title="AI Engineering"
+            title="APIs & Workflow Automation"
             items={[
-              "LLM APIs (OpenAI, Gemini, Claude)",
+              "REST APIs & API integration",
+              "API-driven data pipelines",
+              "JSON / XML / Parquet",
+              "Multi-source data ingestion",
+              "Workflow automation",
+              "External system integration",
+            ]}
+          />
+          <SkillGroup
+            title="AI-Enabled Data Systems"
+            items={[
+              "Agentic workflow concepts",
+              "LLM-powered workflows",
               "RAG (Retrieval-Augmented Generation)",
+              "Prompt design",
+              "Tool / API integration",
+              "Semantic retrieval",
               "LangChain / LlamaIndex",
               "Hugging Face Transformers",
-              "LLM Fine-tuning",
-              "Prompt engineering & optimization",
-              "AI assistant / agent design",
-              "Vector databases (Pinecone, Chroma)",
-              "Model evaluation & benchmarking",
               "FastAPI AI microservices",
             ]}
           />
@@ -321,7 +336,18 @@ export default function Home() {
           />
           <SkillGroup
             title="Cloud, Data & Warehousing"
-            items={["AWS", "GCP", "Snowflake", "BigQuery", "Redshift", "Azure"]}
+            items={[
+              "AWS",
+              "Amazon S3",
+              "AWS Glue",
+              "AWS Lambda",
+              "AWS Redshift",
+              "Databricks",
+              "GCP",
+              "Snowflake",
+              "BigQuery",
+              "Azure",
+            ]}
           />
           <SkillGroup
             title="Databases & Data Modeling"
@@ -427,7 +453,7 @@ export default function Home() {
         </div>
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900/40 p-5 text-sm text-zinc-300">
           <p className="font-semibold text-zinc-100">Sai Srinivas Pedhapolla</p>
-          <p className="mt-1 text-xs text-blue-400">Data Analyst · Data Engineer · AI Engineer · BI Professional</p>
+          <p className="mt-1 text-xs text-blue-400">Data Engineer · ETL/ELT & Cloud Pipelines · AI-Enabled Data Systems</p>
           <p className="mt-3 text-xs leading-relaxed">
             Internship experience building Python and SQL data pipelines, ETL/ELT workflows,
             BI dashboards, LLM-backed features, RAG pipelines, and ML model evaluation systems.
