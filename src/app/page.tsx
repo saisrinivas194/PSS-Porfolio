@@ -79,11 +79,12 @@ export default function Home() {
               View Projects
             </Link>
             <a
-              href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+              href="/Sai_Srinivas_Pedhapolla_Data_Engineer_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
               aria-label="Download resume"
+              download
             >
               Download Resume
             </a>
@@ -443,10 +444,11 @@ export default function Home() {
             </h2>
           </div>
           <a
-            href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+            href="/Sai_Srinivas_Pedhapolla_Data_Engineer_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="rounded-full border border-zinc-700 px-4 py-2 text-xs font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
+            download
           >
             Download PDF →
           </a>
@@ -455,15 +457,16 @@ export default function Home() {
           <p className="font-semibold text-zinc-100">Sai Srinivas Pedhapolla</p>
           <p className="mt-1 text-xs text-blue-400">Data Engineer · ETL/ELT & Cloud Pipelines · AI-Enabled Data Systems</p>
           <p className="mt-3 text-xs leading-relaxed">
-            Internship experience building Python and SQL data pipelines, ETL/ELT workflows,
-            BI dashboards, LLM-backed features, RAG pipelines, and ML model evaluation systems.
-            Proficient in Python, SQL, TensorFlow, PyTorch, LangChain, Power BI, Tableau, AWS, GCP, and Snowflake.
+            2+ years of experience designing, building, and supporting scalable ETL/ELT pipelines,
+            cloud data platforms, and analytics-ready datasets across AWS and GCP.
+            Proficient in Python, SQL, PySpark, Databricks, Snowflake, Angular, TypeScript, Power BI, and Docker/CI-CD.
           </p>
           <a
-            href="https://drive.google.com/uc?export=download&id=16HRDdQg2DTPfSheI9KZx58lDZqmPflAS"
+            href="/Sai_Srinivas_Pedhapolla_Data_Engineer_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="mt-4 inline-block text-xs font-medium text-blue-300 hover:text-blue-200"
+            download
           >
             Download full resume (PDF) →
           </a>
