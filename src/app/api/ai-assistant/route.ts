@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
-import { buildPortfolioContext } from "@/data/portfolio";
+import { buildAssistantContext } from "@/data/portfolio";
 
 const DEBUG_LOG = join(process.cwd(), ".cursor", "debug-b9358d.log");
 const DEBUG_LOG_FALLBACK = join(process.cwd(), "api-ai-debug.log");
@@ -18,21 +18,20 @@ function log(payload: Record<string, unknown>) {
 }
 
 const SYSTEM_INSTRUCTIONS = `
-You are a helpful AI assistant that answers questions about the candidate "Sai Srinivas Pedhapolla", a data analyst, data engineer, and BI professional.
-Use ONLY the context provided about Sai's resume, skills, and projects.
+You are JAD, a friendly assistant answering recruiter/hiring-manager questions about Sai Srinivas Pedhapolla based only on the context below.
 
-- Answer in a concise, recruiter-friendly way. Use short paragraphs and bullet points.
-- Format your response in Markdown: use **bold** for emphasis, - for bullet lists, and clear line breaks.
-- When relevant, structure with sections: Summary, Relevant Experience, Relevant Projects, Technologies Used.
-- If the user asks a follow-up question, use the conversation history to stay consistent and avoid repeating yourself.
-- If a question is not about Sai's background, politely say you can only answer questions about Sai's data analyst, data engineer, and BI experience, skills, and projects.
-- Keep answers focused and under 300 words unless the user asks for detail.
-- Highlight Sai's experience with SQL, Python, Power BI, Tableau, ETL/ELT, data modeling, and analytics workflows.
+Style:
+- Talk like a knowledgeable colleague, not a form. Plain sentences by default.
+- Only reach for bullet points or bold when listing 3+ items or when it genuinely helps scanning — not for every answer.
+- Match answer length to the question: a yes/no or single-fact question gets 1-3 sentences; only go longer for "tell me about..." style questions, and even then stay under ~120 words unless asked for more detail.
+- Never repeat the whole resume. Pick the 1-3 most relevant facts for what was asked.
+- Use conversation history so you don't re-introduce yourself or repeat prior answers.
+- If asked something outside Sai's background, say briefly that you only cover his experience, skills, and projects.
 `;
 
 const MAX_MESSAGE_LENGTH = 2000;
 const MAX_BODY_BYTES = 50 * 1024; // 50KB (for history)
-const MAX_HISTORY_MESSAGES = 20; // last 10 turns
+const MAX_HISTORY_MESSAGES = 8; // last 4 turns — keeps context relevant without ballooning tokens
 const LLM_TIMEOUT_MS = 28000;
 
 /**
@@ -130,7 +129,7 @@ export async function POST(request: Request) {
         const systemInstruction =
           SYSTEM_INSTRUCTIONS +
           "\n\nContext about Sai (resume + projects + skills):\n" +
-          buildPortfolioContext();
+          buildAssistantContext();
         const contents: { role: string; parts: { text: string }[] }[] = [];
         for (const m of history) {
           contents.push({
@@ -143,7 +142,7 @@ export async function POST(request: Request) {
         const payload = {
           systemInstruction: { parts: [{ text: systemInstruction }] },
           contents,
-          generationConfig: { temperature: 0.3, maxOutputTokens: 1024 },
+          generationConfig: { temperature: 0.4, maxOutputTokens: 400 },
         };
 
         let lastQuotaModel: string | null = null;
@@ -240,7 +239,7 @@ export async function POST(request: Request) {
       } else {
         const messages: { role: string; content: string }[] = [
           { role: "system", content: SYSTEM_INSTRUCTIONS },
-          { role: "system", content: `Context about Sai (full portfolio — experience, education, projects, skills, contact):\n${buildPortfolioContext()}` },
+          { role: "system", content: `Context about Sai (experience, education, projects, skills, contact):\n${buildAssistantContext()}` },
           ...history.map((m) => ({ role: m.role, content: m.content })),
           { role: "user", content: trimmedMessage },
         ];
@@ -253,7 +252,8 @@ export async function POST(request: Request) {
           body: JSON.stringify({
             model: "gpt-4o-mini",
             messages,
-            temperature: 0.3,
+            temperature: 0.4,
+            max_tokens: 400,
           }),
           signal: controller.signal,
         });

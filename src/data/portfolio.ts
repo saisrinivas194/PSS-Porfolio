@@ -360,3 +360,43 @@ export function buildPortfolioContext(): string {
 
   return sections.join("\n");
 }
+
+/**
+ * Compact context for the AI assistant: same facts as buildPortfolioContext,
+ * trimmed to the highest-signal bullets/lines so it costs far fewer tokens
+ * per request (this is re-sent as the system prompt on every chat turn).
+ */
+export function buildAssistantContext(): string {
+  const sections: string[] = [];
+
+  sections.push("Candidate: Sai Srinivas Pedhapolla — Data Engineer | ETL/ELT & Cloud Pipelines | Data Science Graduate Student");
+  sections.push(HERO_SUMMARY);
+  sections.push("");
+
+  sections.push("Experience:");
+  for (const c of COMPANIES) {
+    sections.push(`${c.name} — ${c.role}, ${c.location} (${c.period})`);
+    c.bullets.slice(0, 4).forEach((b) => sections.push(`- ${b}`));
+  }
+  sections.push("");
+
+  sections.push("Education:");
+  for (const e of EDUCATION) {
+    sections.push(`- ${e.name}: ${e.degree}, ${e.location} (${e.period}), GPA ${e.gpa}`);
+  }
+  sections.push("");
+
+  sections.push("Projects:");
+  for (const cat of PROJECT_CATEGORIES) {
+    for (const p of cat.projects) {
+      sections.push(`- ${p.name} (${cat.title}): ${p.highlights[0]} [${p.tags.join(", ")}] ${p.repoUrl}`);
+    }
+  }
+  sections.push("");
+
+  sections.push(`Skills: ${TECH_BADGES.join(", ")}`);
+  sections.push(`Location: ${LOCATION} | Work authorization: ${WORK_AUTHORIZATION}`);
+  sections.push(`Contact: ${CONTACT_LINKS.email} | ${CONTACT_LINKS.linkedin} | ${CONTACT_LINKS.github}`);
+
+  return sections.join("\n");
+}

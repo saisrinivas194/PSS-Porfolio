@@ -322,4 +322,4 @@ export function ChatAssistant() {
   );
 }
 
-const MAX_HISTORY_MESSAGES = 20;
+const MAX_HISTORY_MESSAGES = 8;
