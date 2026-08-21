@@ -8,6 +8,7 @@ import {
   EDUCATION,
   LOCATION,
   WORK_AUTHORIZATION,
+  EXPERIENCE_LABEL,
 } from "@/data/portfolio";
 import { CompanyLogo } from "./sections/company-logo";
 import { GithubActivity } from "./sections/github";
@@ -62,7 +63,7 @@ export default function Home() {
             Delivering analytics pipelines, AI systems, and business insights.
           </h2>
           <p className="max-w-xl text-sm leading-relaxed text-zinc-300 sm:text-base">
-            Data engineer with 2+ years of experience building and optimizing
+            Data engineer with {EXPERIENCE_LABEL} of experience building and optimizing
             ETL pipelines, scalable architectures, and analytics-ready data
             systems using Python, SQL, PySpark, Databricks, and AWS. I ingest
             and transform structured, semi-structured, and API-driven data
@@ -97,7 +98,7 @@ export default function Home() {
               <span>GitHub</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/sai-srinivas-52035319b/"
+              href={CONTACT_LINKS.linkedin}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-100 transition hover:border-blue-400 hover:text-blue-200"
@@ -126,7 +127,7 @@ export default function Home() {
               Within 30 seconds, recruiters can see:
             </p>
             <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-              <li>— 2+ years building ETL/ELT pipelines and analytics-ready data systems</li>
+              <li>— {EXPERIENCE_LABEL} building ETL/ELT pipelines and analytics-ready data systems</li>
               <li>— PySpark, Databricks, schema-aware modeling, REST API integration, and growing AI-enabled workflows</li>
               <li>— Python · SQL · PySpark · Databricks · AWS · Snowflake · RAG/LLM-powered pipelines</li>
               <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
@@ -457,7 +458,7 @@ export default function Home() {
           <p className="font-semibold text-zinc-100">Sai Srinivas Pedhapolla</p>
           <p className="mt-1 text-xs text-blue-400">Data Engineer · ETL/ELT & Cloud Pipelines · AI-Enabled Data Systems</p>
           <p className="mt-3 text-xs leading-relaxed">
-            2+ years of experience designing, building, and supporting scalable ETL/ELT pipelines,
+            {EXPERIENCE_LABEL} of experience designing, building, and supporting scalable ETL/ELT pipelines,
             cloud data platforms, and analytics-ready datasets across AWS and GCP.
             Proficient in Python, SQL, PySpark, Databricks, Snowflake, Angular, TypeScript, Power BI, and Docker/CI-CD.
           </p>

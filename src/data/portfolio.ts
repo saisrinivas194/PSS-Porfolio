@@ -281,6 +281,39 @@ export const COMPANIES = [
   },
 ];
 
+const MONTH_INDEX: Record<string, number> = {
+  Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+  Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
+};
+
+function parsePeriodDate(str: string, now: Date): Date {
+  const trimmed = str.trim();
+  if (/present/i.test(trimmed)) return now;
+  const [mon, year] = trimmed.split(" ");
+  return new Date(Number(year), MONTH_INDEX[mon] ?? 0, 1);
+}
+
+/**
+ * Sums the duration of each role in COMPANIES (handling "Present") to derive
+ * total years of experience, so the figure shown across the site stays
+ * accurate as roles/dates change instead of being hand-typed in multiple places.
+ */
+function computeTotalExperienceYears(): number {
+  const now = new Date();
+  const totalMonths = COMPANIES.reduce((sum, c) => {
+    const [startStr, endStr] = c.period.split("–");
+    const start = parsePeriodDate(startStr, now);
+    const end = parsePeriodDate(endStr, now);
+    const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+    return sum + Math.max(0, months);
+  }, 0);
+  return Math.floor(totalMonths / 12);
+}
+
+/** Total years of professional experience, derived from COMPANIES periods. */
+export const TOTAL_EXPERIENCE_YEARS = computeTotalExperienceYears();
+export const EXPERIENCE_LABEL = `${TOTAL_EXPERIENCE_YEARS}+ years`;
+
 export const EDUCATION = [
   {
     name: "New Jersey Institute of Technology",
@@ -303,7 +336,7 @@ export const EDUCATION = [
 ];
 
 const HERO_SUMMARY =
-  "Data Engineer with 2+ years of experience designing, building, and supporting scalable ETL/ELT pipelines, cloud data platforms, and analytics-ready datasets across AWS and GCP. Proficient in Python, SQL, PySpark, Databricks, Snowflake, data warehousing, multi-source ingestion, schema design, transformation, validation, orchestration, monitoring, and CI/CD. Experienced in platform migrations, workflow automation, production troubleshooting, data quality controls, and delivery of reliable datasets for reports, dashboards, APIs, and downstream applications. Combines data engineering expertise with Angular and TypeScript front-end development to deliver end-to-end solutions from ingestion and storage through REST APIs and user-facing interfaces. Growing hands-on alignment to AI-enabled data workflows, including agentic workflow concepts, LLM-powered systems, and API integrations, with a detail-oriented and problem-solving approach.";
+  `Data Engineer with ${EXPERIENCE_LABEL} of experience designing, building, and supporting scalable ETL/ELT pipelines, cloud data platforms, and analytics-ready datasets across AWS and GCP. Proficient in Python, SQL, PySpark, Databricks, Snowflake, data warehousing, multi-source ingestion, schema design, transformation, validation, orchestration, monitoring, and CI/CD. Experienced in platform migrations, workflow automation, production troubleshooting, data quality controls, and delivery of reliable datasets for reports, dashboards, APIs, and downstream applications. Combines data engineering expertise with Angular and TypeScript front-end development to deliver end-to-end solutions from ingestion and storage through REST APIs and user-facing interfaces. Growing hands-on alignment to AI-enabled data workflows, including agentic workflow concepts, LLM-powered systems, and API integrations, with a detail-oriented and problem-solving approach.`;
 
 /**
  * Builds the full portfolio context string for the AI assistant (JAD).
