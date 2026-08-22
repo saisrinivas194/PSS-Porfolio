@@ -117,7 +117,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
       },
       {
         name: "PAC Data Pipelines",
-        repoUrl: "https://github.com/saisrinivas194/pac_data_pipelines",
+        repoUrl: "https://github.com/saisrinivas194/pac_data_pipeline",
         highlights: [
           "Company PAC donation data pipelines and processing",
           "Structured for analytics and reporting",
@@ -143,7 +143,6 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
       {
         name: "Tasknex",
         repoUrl: "https://github.com/saisrinivas194/Tasknex",
-        demoUrl: "https://tasknex-production.up.railway.app/dashboard",
         highlights: [
           "AI-powered workflow and task app: describe a goal → get phases and tasks",
           "Kanban board (Planned / In progress / Completed), drag-and-drop, priorities, due dates",
@@ -176,7 +175,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
       },
       {
         name: "OCR Doc Reads",
-        repoUrl: "https://github.com/saisrinivas194/ocr-doc-reads",
+        repoUrl: "https://github.com/saisrinivas194/ocr-doc-read",
         highlights: [
           "Document reading and OCR-based extraction",
         ],
@@ -192,7 +191,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
       },
       {
         name: "Traffic Analysis Tool",
-        repoUrl: "https://github.com/saisrinivas194/Traffic-analysis-tool-saisrinivas194",
+        repoUrl: "https://github.com/saisrinivas194/Traffic-analysis-tool-",
         highlights: [
           "Traffic or usage analysis tooling",
         ],
@@ -206,7 +205,7 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
     projects: [
       {
         name: "Recipe Health Dashboards",
-        repoUrl: "https://github.com/saisrinivas194/Recipe_Health_Dashboards",
+        repoUrl: "https://github.com/saisrinivas194/Recipe_Health_Dashboard",
         highlights: [
           "Dashboards for recipe and health-related metrics",
         ],

@@ -27,9 +27,9 @@ function playNotificationSound() {
 }
 
 const SUGGESTIONS = [
-  "What data analyst experience does Sai have?",
-  "Tell me about his BI and dashboard projects.",
-  "What data engineering skills does Sai use?",
+  "What data engineering experience does Sai have?",
+  "Tell me about his ETL pipeline projects.",
+  "What cloud and BI tools does Sai use?",
 ];
 
 type ChatMessage = {
@@ -43,7 +43,7 @@ export function ChatAssistant() {
     {
       role: "assistant",
       content:
-        "Hi, I'm JAD — an AI assistant trained on Sai's resume and GitHub. Ask me about his data analyst, data engineer, and BI experience, ETL pipelines, or projects.",
+        "Hi, I'm JAD — an AI assistant trained on Sai's resume and GitHub. Ask me about his data engineering experience, ETL pipelines, cloud platforms, or projects.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -169,7 +169,7 @@ export function ChatAssistant() {
             className="relative rounded-xl border border-zinc-700 bg-zinc-900 px-3 py-2.5 shadow-xl ring-1 ring-white/5"
             style={{ animation: "fadeIn 0.5s ease-out" }}
           >
-            <p className="text-xs font-medium text-zinc-100">Ask me about Sai's data analyst, data engineer & BI experience!</p>
+            <p className="text-xs font-medium text-zinc-100">Ask me about Sai&apos;s data engineering &amp; BI experience!</p>
             <span className="absolute -right-1.5 bottom-6 size-3 rotate-45 border-r border-b border-zinc-700 bg-zinc-900" aria-hidden />
           </div>
           <button
@@ -201,7 +201,7 @@ export function ChatAssistant() {
             </span>
             <div>
               <p className="text-xs font-semibold text-zinc-100">JAD</p>
-              <p className="text-[11px] text-zinc-500">AI assistant · Ask about Sai's data analyst, data engineer & BI experience</p>
+              <p className="text-[11px] text-zinc-500">AI assistant · Ask about Sai&apos;s data engineering &amp; BI experience</p>
             </div>
           </div>
           <button
