@@ -1,12 +1,13 @@
-import Image from "next/image";
+import { PortraitDots } from "./portrait-dots";
 
 const DOT_GRID = Array.from({ length: 16 });
 
 /**
- * Editorial poster treatment: dark "mat" card framing the photo, a kicker
- * line + issue number like a magazine masthead, a dot-grid accent, corner
- * registration marks on the photo, and a designed name/role caption below
- * — a composed layout rather than a raw cropped snapshot.
+ * Editorial poster treatment: dark "mat" card framing the portrait, a
+ * kicker line + issue number like a magazine masthead, a dot-grid accent,
+ * and a designed name/role caption below. The portrait itself (PortraitDots)
+ * is built entirely from stippled dots and short connecting lines rather
+ * than showing the photo directly.
  */
 export function ProfilePoster() {
   return (
@@ -26,16 +27,8 @@ export function ProfilePoster() {
         </p>
       </div>
 
-      <div className="relative mt-4 aspect-[4/5] w-full overflow-hidden rounded-xl">
-        <Image
-          src="/images/IMG_9630.png"
-          alt="Sai Srinivas Pedhapolla"
-          fill
-          priority
-          sizes="(min-width: 768px) 420px, 100vw"
-          className="object-cover object-top [filter:contrast(1.06)_saturate(0.92)]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
+      <div className="relative mt-4 aspect-[4/5] w-full overflow-hidden rounded-xl bg-black">
+        <PortraitDots />
         <div className="pointer-events-none absolute left-2 top-2 size-5 border-l-2 border-t-2 border-blue-300/80" />
         <div className="pointer-events-none absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-blue-300/80" />
       </div>
