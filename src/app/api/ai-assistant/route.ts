@@ -142,7 +142,15 @@ export async function POST(request: Request) {
         const payload = {
           systemInstruction: { parts: [{ text: systemInstruction }] },
           contents,
-          generationConfig: { temperature: 0.4, maxOutputTokens: 400 },
+          generationConfig: {
+            temperature: 0.4,
+            maxOutputTokens: 700,
+            // These models "think" by default; without disabling it, thinking
+            // tokens eat into maxOutputTokens and can leave no budget for the
+            // actual visible answer, which is what was causing replies to
+            // cut off mid-sentence or come back empty.
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         };
 
         let lastQuotaModel: string | null = null;
@@ -167,12 +175,21 @@ export async function POST(request: Request) {
 
           if (geminiRes.ok) {
             const geminiData = JSON.parse(geminiText) as {
-              candidates?: { content?: { parts?: { text?: string }[] } }[];
+              candidates?: {
+                content?: { parts?: { text?: string; thought?: boolean }[] };
+                finishReason?: string;
+              }[];
             };
-            const raw =
-              geminiData.candidates?.[0]?.content?.parts?.[0]?.text ??
-              "I couldn’t find a good answer based on the current context.";
-            answer = typeof raw === "string" ? raw.trim() : String(raw).trim();
+            const candidate = geminiData.candidates?.[0];
+            const raw = (candidate?.content?.parts ?? [])
+              .filter((p) => !p.thought && typeof p.text === "string")
+              .map((p) => p.text)
+              .join("")
+              .trim();
+            answer = raw || "I couldn’t find a good answer based on the current context.";
+            if (candidate?.finishReason === "MAX_TOKENS") {
+              log({ where: "gemini_truncated", model, answerLength: answer.length });
+            }
             break;
           }
 
@@ -253,7 +270,7 @@ export async function POST(request: Request) {
             model: "gpt-4o-mini",
             messages,
             temperature: 0.4,
-            max_tokens: 400,
+            max_tokens: 600,
           }),
           signal: controller.signal,
         });
