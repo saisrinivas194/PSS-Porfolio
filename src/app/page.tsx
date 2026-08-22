@@ -11,6 +11,7 @@ import {
   EXPERIENCE_LABEL,
 } from "@/data/portfolio";
 import { CompanyLogo } from "./sections/company-logo";
+import { PortraitConstellation } from "./sections/portrait-constellation";
 import { GithubActivity } from "./sections/github";
 import { ChatAssistant } from "./sections/chat-assistant";
 import { ContactForm } from "./sections/contact-form";
@@ -117,25 +118,31 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="relative">
-          <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-blue-500/20 blur-3xl" />
-          <div className="relative rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-black/80 p-6 shadow-xl shadow-black/50">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
-              Snapshot
-            </p>
-            <p className="mt-3 text-sm text-zinc-300">
-              Within 30 seconds, recruiters can see:
-            </p>
-            <ul className="mt-3 space-y-2 text-sm text-zinc-200">
-              <li>— {EXPERIENCE_LABEL} building ETL/ELT pipelines and analytics-ready data systems</li>
-              <li>— PySpark, Databricks, schema-aware modeling, REST API integration, and growing AI-enabled workflows</li>
-              <li>— Python · SQL · PySpark · Databricks · AWS · Snowflake · RAG/LLM-powered pipelines</li>
-              <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
-            </ul>
-            <p className="mt-4 text-xs text-zinc-400">
-              Ask the AI assistant anything about my experience, projects, or
-              skills — it is grounded in my resume and GitHub profile.
-            </p>
+        <div className="space-y-6">
+          <div className="relative">
+            <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-blue-500/10 blur-3xl" />
+            <PortraitConstellation />
+          </div>
+          <div className="relative">
+            <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-blue-500/20 blur-3xl" />
+            <div className="relative rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900/60 to-black/80 p-6 shadow-xl shadow-black/50">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+                Snapshot
+              </p>
+              <p className="mt-3 text-sm text-zinc-300">
+                Within 30 seconds, recruiters can see:
+              </p>
+              <ul className="mt-3 space-y-2 text-sm text-zinc-200">
+                <li>— {EXPERIENCE_LABEL} building ETL/ELT pipelines and analytics-ready data systems</li>
+                <li>— PySpark, Databricks, schema-aware modeling, REST API integration, and growing AI-enabled workflows</li>
+                <li>— Python · SQL · PySpark · Databricks · AWS · Snowflake · RAG/LLM-powered pipelines</li>
+                <li>— Based in {LOCATION} · {WORK_AUTHORIZATION}</li>
+              </ul>
+              <p className="mt-4 text-xs text-zinc-400">
+                Ask the AI assistant anything about my experience, projects, or
+                skills — it is grounded in my resume and GitHub profile.
+              </p>
+            </div>
           </div>
         </div>
       </section>
