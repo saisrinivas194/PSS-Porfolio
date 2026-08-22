@@ -1,28 +1,55 @@
 import Image from "next/image";
 
+const DOT_GRID = Array.from({ length: 16 });
+
 /**
- * Clean poster-style portrait: the actual photo, clearly visible, with a
- * minimal frame and a name/title caption like a movie-poster credit line.
+ * Editorial poster treatment: dark "mat" card framing the photo, a kicker
+ * line + issue number like a magazine masthead, a dot-grid accent, corner
+ * registration marks on the photo, and a designed name/role caption below
+ * — a composed layout rather than a raw cropped snapshot.
  */
 export function ProfilePoster() {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-zinc-800 shadow-xl shadow-black/50">
-      <div className="relative aspect-[4/5] w-full">
+    <div className="relative overflow-hidden rounded-3xl border border-zinc-800 bg-gradient-to-b from-zinc-900 to-black p-5 shadow-xl shadow-black/50">
+      <div className="pointer-events-none absolute right-5 top-5 grid grid-cols-4 gap-1.5">
+        {DOT_GRID.map((_, i) => (
+          <span key={i} className="size-1 rounded-full bg-blue-400/70" />
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between pr-24">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-blue-400">
+          Portfolio
+        </p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-600">
+          No. 01
+        </p>
+      </div>
+
+      <div className="relative mt-4 aspect-[4/5] w-full overflow-hidden rounded-xl">
         <Image
           src="/images/IMG_9630.png"
           alt="Sai Srinivas Pedhapolla"
           fill
           priority
           sizes="(min-width: 768px) 420px, 100vw"
-          className="object-cover object-top"
+          className="object-cover object-top [filter:contrast(1.06)_saturate(0.92)]"
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
+        <div className="pointer-events-none absolute left-2 top-2 size-5 border-l-2 border-t-2 border-blue-300/80" />
+        <div className="pointer-events-none absolute bottom-2 right-2 size-5 border-b-2 border-r-2 border-blue-300/80" />
       </div>
-      <div className="absolute inset-x-0 bottom-0 p-5">
-        <p className="text-base font-semibold text-white">Sai Srinivas Pedhapolla</p>
-        <p className="text-xs font-medium uppercase tracking-[0.2em] text-blue-300">
-          Data Engineer
+
+      <div className="mt-4">
+        <p className="text-xl font-bold tracking-tight text-white">
+          Sai Srinivas Pedhapolla
         </p>
+        <div className="mt-1.5 flex items-center gap-2">
+          <span className="h-px w-6 bg-blue-400" />
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+            Data Engineer
+          </p>
+        </div>
       </div>
     </div>
   );
