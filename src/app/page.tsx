@@ -11,7 +11,7 @@ import {
   EXPERIENCE_LABEL,
 } from "@/data/portfolio";
 import { CompanyLogo } from "./sections/company-logo";
-import { PortraitConstellation } from "./sections/portrait-constellation";
+import { ProfilePoster } from "./sections/profile-poster";
 import { GithubActivity } from "./sections/github";
 import { ChatAssistant } from "./sections/chat-assistant";
 import { ContactForm } from "./sections/contact-form";
@@ -121,7 +121,7 @@ export default function Home() {
         <div className="space-y-6">
           <div className="relative">
             <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-blue-500/10 blur-3xl" />
-            <PortraitConstellation />
+            <ProfilePoster />
           </div>
           <div className="relative">
             <div className="pointer-events-none absolute -inset-6 rounded-3xl bg-blue-500/20 blur-3xl" />
