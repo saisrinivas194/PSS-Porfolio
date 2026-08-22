@@ -254,119 +254,85 @@ export default function Home() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SkillGroup
+            title="Languages & Query"
+            items={["Python", "SQL", "PL/SQL", "Spark SQL"]}
+          />
+          <SkillGroup
             title="Data Engineering"
             items={[
-              "ETL / ELT pipelines",
-              "PySpark / Spark SQL",
+              "ETL/ELT",
+              "PySpark",
               "Databricks",
-              "Distributed & batch processing",
-              "Data modeling & schema design",
-              "Data warehousing",
-              "Query optimization",
-              "Data validation & quality",
+              "Pandas",
+              "DuckDB",
+              "Parquet",
               "dbt",
               "Apache Airflow",
+              "Data Modeling",
             ]}
           />
           <SkillGroup
-            title="APIs & Workflow Automation"
-            items={[
-              "REST APIs & API integration",
-              "API-driven data pipelines",
-              "JSON / XML / Parquet",
-              "Multi-source data ingestion",
-              "Workflow automation",
-              "External system integration",
-            ]}
-          />
-          <SkillGroup
-            title="AI-Enabled Data Systems"
-            items={[
-              "Agentic workflow concepts",
-              "LLM-powered workflows",
-              "RAG (Retrieval-Augmented Generation)",
-              "Prompt design",
-              "Tool / API integration",
-              "Semantic retrieval",
-              "LangChain / LlamaIndex",
-              "Hugging Face Transformers",
-              "FastAPI AI microservices",
-            ]}
-          />
-          <SkillGroup
-            title="Machine Learning & Analytics"
-            items={[
-              "TensorFlow",
-              "PyTorch",
-              "scikit-learn",
-              "EDA & statistical analysis",
-              "Feature engineering",
-              "Regression & forecasting",
-              "Hypothesis testing",
-              "Data storytelling",
-              "Anomaly detection",
-              "Model deployment (Docker, FastAPI)",
-            ]}
-          />
-          <SkillGroup
-            title="Analytics Apps & Reporting"
-            items={[
-              "Python analytics apps",
-              "BI dashboards and reporting",
-              "Power BI",
-              "Tableau",
-              "Looker / Looker Studio",
-              "Google Data Studio",
-              "Self-serve analytics",
-              "Dashboard design",
-            ]}
-          />
-          <SkillGroup
-            title="Programming & Query"
-            items={["Python", "SQL", "PostgreSQL", "MySQL", "T-SQL", "PL/SQL", "Bash"]}
-          />
-          <SkillGroup
-            title="Git, Workflow & Automation"
-            items={[
-              "Git / GitHub",
-              "CI/CD",
-              "Test automation",
-              "Jira / Agile",
-              "Pair programming",
-              "Documentation",
-            ]}
-          />
-          <SkillGroup
-            title="Cloud, Data & Warehousing"
+            title="Cloud & Infra"
             items={[
               "AWS",
               "Amazon S3",
               "AWS Glue",
               "AWS Lambda",
               "AWS Redshift",
-              "Databricks",
+              "AWS ECR",
+              "AWS ECS Fargate",
+              "AWS EventBridge",
+              "AWS CloudWatch",
+              "AWS IAM",
               "GCP",
-              "Snowflake",
-              "BigQuery",
-              "Azure",
+              "GCP Cloud Functions",
+              "GCP Cloud Scheduler",
+              "GCP Pub/Sub",
+              "GCP Cloud Monitoring",
+              "Docker",
+              "GitHub Actions",
+              "CI/CD",
             ]}
           />
           <SkillGroup
-            title="Databases & Data Modeling"
-            items={["PostgreSQL", "MySQL", "SQL Server", "Snowflake", "MongoDB", "NoSQL"]}
+            title="Data Warehousing"
+            items={["Snowflake", "Firebase", "BigQuery"]}
           />
           <SkillGroup
-            title="Tools & Productivity"
+            title="Frontend & Web"
+            items={["Angular", "TypeScript", "JavaScript", "HTML5", "CSS3", "REST API Integration"]}
+          />
+          <SkillGroup
+            title="BI & Analytics"
             items={[
-              "Excel",
-              "Advanced Excel",
-              "Pivot Tables",
-              "VLOOKUP / XLOOKUP",
-              "Google Sheets",
-              "Jupyter Notebook",
               "Power BI",
               "Tableau",
+              "Looker",
+              "Streamlit",
+              "Plotly",
+              "Google Analytics 4 (GA4) API",
+              "Excel",
+              "Dashboarding",
             ]}
+          />
+          <SkillGroup
+            title="AI / ML"
+            items={[
+              "TensorFlow",
+              "PyTorch",
+              "scikit-learn",
+              "Hugging Face",
+              "LangChain",
+              "OpenAI API",
+              "FastAPI",
+              "LLM Fine-tuning",
+              "RAG",
+              "Prompt Engineering",
+            ]}
+          />
+          <SkillGroup
+            title="Tools & Practice"
+            items={["Git", "Jupyter Notebook"]}
           />
         </div>
       </section>
