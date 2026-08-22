@@ -134,6 +134,41 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
         ],
         tags: ["Python", "Firebase"],
       },
+      {
+        name: "NLP Pipelines for Corporate & Policy Data",
+        repoUrl: "https://github.com/saisrinivas194/NLP-Pipelines-for-Corporate-and-Policy-Data",
+        highlights: [
+          "End-to-end pipeline unifying SEC filings, FEC political data, Gmail logs, and Snowflake datasets into structured corporate-political intelligence",
+          "NLP-based executive extraction from 10-K/8-K filings; parent–subsidiary mapping from SEC Exhibit 21 (~74K subsidiaries)",
+          "Entity resolution linking companies, tickers, executives, and donation records",
+        ],
+        tags: ["Python", "NLP", "Snowflake", "Firebase", "Entity Resolution"],
+      },
+      {
+        name: "Politician Issues Pipeline",
+        repoUrl: "https://github.com/saisrinivas194/politician_issues",
+        highlights: [
+          "Extracts politician stance data from Snowflake and loads it into Firebase Realtime Database",
+        ],
+        tags: ["Python", "Snowflake", "Firebase"],
+      },
+      {
+        name: "Executive Crosswalk",
+        repoUrl: "https://github.com/saisrinivas194/exec_crosswalk",
+        highlights: [
+          "Aggregates per-company executive donation spreadsheets by executive, election cycle, and party",
+          "Human-in-the-loop review step (matched/low-confidence/unmatched CSV exports) required before upload",
+        ],
+        tags: ["Python", "Firebase", "Data Quality"],
+      },
+      {
+        name: "Inauguration Data Uploader",
+        repoUrl: "https://github.com/saisrinivas194/inaguration_uploader",
+        highlights: [
+          "Uploads company inauguration-contribution data to Firebase with company-name matching",
+        ],
+        tags: ["Python", "Firebase"],
+      },
     ],
   },
   {
@@ -220,6 +255,21 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
           "Modeled API responses into analysis-ready tables and built interactive visualizations for traffic, engagement, and revenue trends",
         ],
         tags: ["Analytics", "GA4", "Streamlit", "Plotly"],
+      },
+    ],
+  },
+  {
+    title: "Machine Learning & Analytics",
+    description: "Applied ML and exploratory data analysis.",
+    projects: [
+      {
+        name: "Customer Personality Analysis",
+        repoUrl: "https://github.com/saisrinivas194/Customer_Personality_Analysis_Python_Machine_Learning",
+        highlights: [
+          "Segments a company's customer base to inform product and targeting decisions",
+          "Feature engineering and clustering on marketing-campaign data; deployed as an app for interactive exploration",
+        ],
+        tags: ["Python", "scikit-learn", "Machine Learning"],
       },
     ],
   },
