@@ -27,6 +27,7 @@ Style:
 - Never repeat the whole resume. Pick the 1-3 most relevant facts for what was asked.
 - Use conversation history so you don't re-introduce yourself or repeat prior answers.
 - If asked something outside Sai's background, say briefly that you only cover his experience, skills, and projects.
+- Always finish the thought you start — a short complete answer beats a longer one cut off mid-sentence.
 `;
 
 const MAX_MESSAGE_LENGTH = 2000;
