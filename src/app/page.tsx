@@ -271,6 +271,8 @@ export default function Home() {
               "dbt",
               "Apache Airflow",
               "Data Modeling",
+              "Data Quality",
+              "Workflow Automation",
             ]}
           />
           <SkillGroup
@@ -298,11 +300,20 @@ export default function Home() {
           />
           <SkillGroup
             title="Data Warehousing"
-            items={["Snowflake", "Firebase", "BigQuery"]}
+            items={["Snowflake", "Firebase", "BigQuery", "PostgreSQL"]}
           />
           <SkillGroup
-            title="Frontend & Web"
-            items={["Angular", "TypeScript", "JavaScript", "HTML5", "CSS3", "REST API Integration"]}
+            title="Frontend & Full-Stack"
+            items={[
+              "Angular",
+              "Next.js",
+              "TypeScript",
+              "JavaScript",
+              "HTML5",
+              "CSS3",
+              "REST API Integration",
+              "Flask",
+            ]}
           />
           <SkillGroup
             title="BI & Analytics"
@@ -323,6 +334,9 @@ export default function Home() {
               "TensorFlow",
               "PyTorch",
               "scikit-learn",
+              "Machine Learning",
+              "NLP",
+              "Entity Resolution",
               "Hugging Face",
               "LangChain",
               "OpenAI API",
