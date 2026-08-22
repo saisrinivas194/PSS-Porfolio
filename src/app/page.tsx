@@ -208,17 +208,19 @@ export default function Home() {
                           rel="noreferrer"
                           className="text-xs font-medium text-blue-300 hover:text-blue-200"
                         >
-                          Live demo →
+                          {project.repoUrl ? "Live demo →" : "Visit site →"}
                         </a>
                       )}
-                      <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs font-medium text-zinc-400 hover:text-zinc-300"
-                      >
-                        View repo →
-                      </a>
+                      {project.repoUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-xs font-medium text-zinc-400 hover:text-zinc-300"
+                        >
+                          View repo →
+                        </a>
+                      )}
                     </div>
                   </div>
                 </article>

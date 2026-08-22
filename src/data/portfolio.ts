@@ -84,7 +84,7 @@ export const TECH_BADGES = [
 
 export type ProjectCard = {
   name: string;
-  repoUrl: string;
+  repoUrl?: string;
   demoUrl?: string;
   highlights: string[];
   tags: string[];
@@ -175,6 +175,15 @@ export const PROJECT_CATEGORIES: { title: string; description?: string; projects
     title: "Full-stack & Web Apps",
     description: "End-to-end applications with frontend and backend.",
     projects: [
+      {
+        name: "StatusWire",
+        demoUrl: "https://statuswire.site/",
+        highlights: [
+          "Aggregates immigration and visa news from 35+ public sources, organized by visa type (H-1B, F-1/OPT, Green Card, L-1/O-1, and more)",
+          "Auto-refreshing feed (every 15 min) plus editorial policy snapshots summarizing what changed and why it matters",
+        ],
+        tags: ["Next.js", "Data Aggregation", "Automation"],
+      },
       {
         name: "Tasknex",
         repoUrl: "https://github.com/saisrinivas194/Tasknex",
@@ -418,9 +427,9 @@ export function buildPortfolioContext(): string {
   for (const cat of PROJECT_CATEGORIES) {
     sections.push(`${cat.title}${cat.description ? ` — ${cat.description}` : ""}`);
     for (const p of cat.projects) {
-      sections.push(`- ${p.name} (${p.repoUrl})`);
+      sections.push(`- ${p.name} (${p.repoUrl ?? p.demoUrl ?? "no link"})`);
       p.highlights.forEach((h) => sections.push(`  · ${h}`));
-      if (p.demoUrl) sections.push(`  · Demo: ${p.demoUrl}`);
+      if (p.demoUrl && p.repoUrl) sections.push(`  · Demo: ${p.demoUrl}`);
       sections.push(`  Tags: ${p.tags.join(", ")}`);
     }
     sections.push("");
@@ -471,7 +480,7 @@ export function buildAssistantContext(): string {
   sections.push("Projects:");
   for (const cat of PROJECT_CATEGORIES) {
     for (const p of cat.projects) {
-      sections.push(`- ${p.name} (${cat.title}): ${p.highlights[0]} [${p.tags.join(", ")}] ${p.repoUrl}`);
+      sections.push(`- ${p.name} (${cat.title}): ${p.highlights[0]} [${p.tags.join(", ")}] ${p.repoUrl ?? p.demoUrl ?? ""}`);
     }
   }
   sections.push("");
