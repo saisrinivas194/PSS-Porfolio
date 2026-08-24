@@ -314,7 +314,7 @@ export const COMPANIES = [
   },
   {
     name: "Webdaddy",
-    role: "Python Developer & R&D Data Intern",
+    role: "Python Developer & R&D Data",
     location: "United States",
     website: "https://webdaddy.sg/",
     logoDomain: "webdaddy.sg",
@@ -331,7 +331,7 @@ export const COMPANIES = [
   },
   {
     name: "Findem",
-    role: "R&D Data Analyst Intern",
+    role: "R&D Data Analyst",
     location: "India",
     website: "https://findem.ai",
     logoDomain: "findem.ai",
